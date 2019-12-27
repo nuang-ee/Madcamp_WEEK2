@@ -1,7 +1,9 @@
-package com.example.myapplication
+package com.example.myfirstapp
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
+import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -9,10 +11,12 @@ import android.util.Log
 import android.widget.ListView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
 
 class MainActivity : AppCompatActivity() {
-
-    private var listView: ListView? = null
+    private var recyclerView: RecyclerView? = null
     private var customAdapter: CustomAdapter? = null
     private var contactModelArrayList: ArrayList<ContactModel>? = null
 
@@ -52,11 +56,10 @@ class MainActivity : AppCompatActivity() {
                     // result of the request.
                 }
             } else {
-                listView = findViewById(R.id.listView) as ListView
+
+                recyclerView = findViewById(R.id.recyclerView) as RecyclerView
 
                 contactModelArrayList = ArrayList()
-
-
 
                 val phones = contentResolver.query(
                     ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -65,13 +68,12 @@ class MainActivity : AppCompatActivity() {
                     null,
                     ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
                 )
-
                 while (phones!!.moveToNext()) {
-
                     val name =
                         phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
                     val phoneNumber =
                         phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                    //val mail = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Email.CONTENT_URI))
 
                     val contactModel = ContactModel()
                     contactModel.setNames(name)
@@ -81,8 +83,13 @@ class MainActivity : AppCompatActivity() {
                 }
                 phones.close()
                 runflag = false
+
                 customAdapter = CustomAdapter(this, contactModelArrayList!!)
-                listView!!.adapter = customAdapter
+                recyclerView!!.adapter = customAdapter
+
+                val lm = LinearLayoutManager(this)
+                recyclerView!!.layoutManager = lm
+                recyclerView!!.setHasFixedSize(true)
             }
         }
     }
