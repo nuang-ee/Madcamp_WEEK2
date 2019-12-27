@@ -1,34 +1,21 @@
-package com.example.myfirstapp
+package com.example.myapplication
 
+/**
+ * Created by Parsania Hardik on 20-Jan-18.
+ */
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import java.util.ArrayList
 
-class ContactModel {
-    var name: String? = null
-    var number: String? = null
+/**
+ * Created by Parsania Hardik on 11-May-17.
+ */
+class CustomAdapter(private val context: Context, private val contactModelArrayList: ArrayList<ContactModel>) : BaseAdapter() {
 
-    fun setNames(name: String) {
-        this.name = name
-    }
-
-    fun getNumbers(): String {
-        return number.toString()
-    }
-
-    fun setNumbers(number: String) {
-        this.number = number
-    }
-
-    fun getNames(): String {
-        return name.toString()
-    }
-}
-
-class CustomAdapter(private val context: Context, private val contactModelArrayList: ArrayList<ContactModel>): BaseAdapter{
     override fun getViewTypeCount(): Int {
         return count
     }
