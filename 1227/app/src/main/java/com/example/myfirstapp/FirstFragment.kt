@@ -33,7 +33,7 @@ class FirstFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_first, container, false)
-        recyclerView = getView()?.findViewById(R.id.recyclerView) as RecyclerView
+        recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
 
         contactModelArrayList = ArrayList()
 
