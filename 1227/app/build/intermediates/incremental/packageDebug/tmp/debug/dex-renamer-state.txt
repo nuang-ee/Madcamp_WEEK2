@@ -1,4 +1,4 @@
-#Sat Dec 28 16:35:11 KST 2019
-base.0=C\:\\Users\\q\\AndroidStudioProjects\\1227\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+#Sat Dec 28 19:08:12 KST 2019
+base.0=C\:\\Users\\q\\Documents\\GitHub\\Madcamp\\1227\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

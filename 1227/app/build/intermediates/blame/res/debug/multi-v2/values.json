@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\q\\AndroidStudioProjects\\1227\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "C:\\Users\\q\\Documents\\GitHub\\Madcamp\\1227\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\q\\.gradle\\caches\\transforms-2\\files-2.1\\f0e9b94e8b3cb076b0ec9954228b2a81\\res\\values\\values.xml",
@@ -21,37 +21,20 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\q\\AndroidStudioProjects\\1227\\app\\src\\main\\res\\values\\colors.xml",
+                    "source": "C:\\Users\\q\\.gradle\\caches\\transforms-2\\files-2.1\\e349e9372f9a9183089035613f5ea955\\res\\values\\values.xml",
                     "from": {
-                        "startLines": "4,2,3,6,5",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "157,57,105,245,204",
-                        "endColumns": "45,46,50,42,39",
-                        "endOffsets": "198,99,151,283,239"
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "57",
+                        "endOffsets": "108"
                     },
                     "to": {
-                        "startLines": "193,194,195,254,261",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "10029,10075,10122,14061,14511",
-                        "endColumns": "45,46,50,42,39",
-                        "endOffsets": "10070,10117,10168,14099,14546"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\q\\AndroidStudioProjects\\1227\\app\\src\\main\\res\\values\\strings.xml",
-                    "from": {
-                        "startLines": "1,3,2,6",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "17,126,68,233",
-                        "endColumns": "49,44,56,69",
-                        "endOffsets": "62,166,120,298"
-                    },
-                    "to": {
-                        "startLines": "2295,2298,2301,2304",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "140632,140963,141199,141570",
-                        "endColumns": "49,44,56,69",
-                        "endOffsets": "140677,141003,141251,141635"
+                        "startLines": "2204",
+                        "startColumns": "4",
+                        "startOffsets": "135122",
+                        "endColumns": "57",
+                        "endOffsets": "135175"
                     }
                 },
                 {
@@ -93,25 +76,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\q\\AndroidStudioProjects\\1227\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3",
-                        "startColumns": "4",
-                        "startOffsets": "57",
-                        "endLines": "8",
-                        "endColumns": "12",
-                        "endOffsets": "376"
-                    },
-                    "to": {
-                        "startLines": "2323",
-                        "startColumns": "4",
-                        "startOffsets": "143519",
-                        "endLines": "2328",
-                        "endColumns": "12",
-                        "endOffsets": "143833"
-                    }
-                },
-                {
                     "source": "C:\\Users\\q\\.gradle\\caches\\transforms-2\\files-2.1\\1b35cf5de11f152bc3fb10c57a14481c\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,10,3,4,5,6,7,8,9",
@@ -147,6 +111,23 @@
                         "endLines": "237,238,1051,1251,1283,1321,1328,2023,2024,2025,2026,2027,2028,2029,2137,2138,2139,2140,2141,2142,2143,2144,2145,2146,2147,2148,2149,2150,2151,2164,2165,2166,2167,2168,2169,2170,2171,2172,2173,2174,2175,2176,2177,2178,2179,2180,2181,2182,2183,2184,2185,2186,2187,2188,2189,2190,2191,2192,2193,2194,2195,2196,2197,2198,2207,2208,2220,2221,2222,2223,2224,2225,2226,2227,2228,2229,2233,2255,2313,4005,4009,4011,4017,4019,4382,4383",
                         "endColumns": "68,62,24,24,24,24,24,69,67,71,69,60,73,72,60,60,61,63,61,60,67,99,59,65,72,68,56,51,61,71,75,64,58,58,59,59,59,59,59,59,59,59,59,59,58,59,59,59,59,59,59,59,59,59,59,58,59,59,58,58,58,58,58,58,34,34,54,62,54,57,56,49,60,56,33,34,34,69,70,116,12,109,12,128,71,66",
                         "endOffsets": "12905,12968,58925,77173,79238,81200,81577,123864,123932,124004,124074,124135,124209,124282,131167,131228,131290,131354,131416,131477,131545,131645,131705,131771,131844,131913,131970,132022,132084,132821,132897,132962,133021,133080,133140,133200,133260,133320,133380,133440,133500,133560,133620,133680,133739,133799,133859,133919,133979,134039,134099,134159,134219,134279,134339,134398,134458,134518,134577,134636,134695,134754,134813,134872,135310,135345,135940,136003,136058,136116,136173,136223,136284,136341,136375,136410,136588,137869,142795,255829,256030,256206,256590,256785,281130,281197"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\q\\Documents\\GitHub\\Madcamp\\1227\\app\\src\\main\\res\\values\\colors.xml",
+                    "from": {
+                        "startLines": "4,2,3,6,5",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "157,57,105,245,204",
+                        "endColumns": "45,46,50,42,39",
+                        "endOffsets": "198,99,151,283,239"
+                    },
+                    "to": {
+                        "startLines": "193,194,195,254,261",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "10029,10075,10122,14061,14511",
+                        "endColumns": "45,46,50,42,39",
+                        "endOffsets": "10070,10117,10168,14099,14546"
                     }
                 },
                 {
@@ -186,20 +167,39 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\q\\.gradle\\caches\\transforms-2\\files-2.1\\8ef735274158ebedcaefefbf1397fe91\\res\\values\\values.xml",
+                    "source": "C:\\Users\\q\\Documents\\GitHub\\Madcamp\\1227\\app\\src\\main\\res\\values\\strings.xml",
                     "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "57",
-                        "endOffsets": "108"
+                        "startLines": "1,3,2,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "17,126,68,233",
+                        "endColumns": "49,44,56,69",
+                        "endOffsets": "62,166,120,298"
                     },
                     "to": {
-                        "startLines": "2204",
+                        "startLines": "2295,2298,2301,2304",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "140632,140963,141199,141570",
+                        "endColumns": "49,44,56,69",
+                        "endOffsets": "140677,141003,141251,141635"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\q\\Documents\\GitHub\\Madcamp\\1227\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "3",
                         "startColumns": "4",
-                        "startOffsets": "135122",
-                        "endColumns": "57",
-                        "endOffsets": "135175"
+                        "startOffsets": "57",
+                        "endLines": "8",
+                        "endColumns": "12",
+                        "endOffsets": "376"
+                    },
+                    "to": {
+                        "startLines": "2323",
+                        "startColumns": "4",
+                        "startOffsets": "143519",
+                        "endLines": "2328",
+                        "endColumns": "12",
+                        "endOffsets": "143833"
                     }
                 },
                 {

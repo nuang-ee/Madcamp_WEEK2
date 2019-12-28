@@ -1,24 +1,18 @@
 package com.example.myfirstapp
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myfirstapp.R
 import com.example.myfirstapp.adapter.GalleryImageAdapter
 import com.example.myfirstapp.adapter.GalleryImageClickListener
 import com.example.myfirstapp.adapter.Image
 import com.example.myfirstapp.fragment.GalleryFullscreenFragment
-import kotlinx.android.synthetic.main.fragment_second.*
 
 
-/**
- * A simple [Fragment] subclass.
- */
 class SecondFragment : Fragment(), GalleryImageClickListener {
     private val SPAN_COUNT = 3
     private val imageList = ArrayList<Image>()
@@ -35,7 +29,7 @@ class SecondFragment : Fragment(), GalleryImageClickListener {
         galleryAdapter.listener = this
 
         recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
-        recyclerView!!.layoutManager = GridLayoutManager(getContext(), SPAN_COUNT)
+        recyclerView!!.layoutManager = GridLayoutManager(context, SPAN_COUNT)
         recyclerView!!.adapter = galleryAdapter
 
         loadImages()
@@ -56,6 +50,19 @@ class SecondFragment : Fragment(), GalleryImageClickListener {
         imageList.add(Image("https://i.ibb.co/JKB0KPk/pizza.jpg", "Pizza Time"))
         imageList.add(Image("https://i.ibb.co/VYYPZGk/salmon.jpg", "Salmon "))
         imageList.add(Image("https://i.ibb.co/JvWpzYC/sunset.jpg", "Sunset in Beach"))
+        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
+        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
+        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
+        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
+        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
+        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
+        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
+        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
+        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
+        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
+        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
+        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
+        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
         galleryAdapter.notifyDataSetChanged()
     }
 

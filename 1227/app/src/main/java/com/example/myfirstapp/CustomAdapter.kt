@@ -14,10 +14,12 @@ class CustomAdapter(private val context: Context, private val contactModelArrayL
 
         var tvname: TextView? = itemView?.findViewById(R.id.name)
         var tvnumber: TextView? = itemView?.findViewById(R.id.number)
+        var tvmail: TextView? = itemView?.findViewById(R.id.mail)
 
-        fun bind (contactModel: ContactModel, context: Context) {
+        fun bind (contactModel: ContactModel) {
             tvname?.text = contactModel.getNames()
             tvnumber?.text = contactModel.getNumbers()
+            tvmail?.text = contactModel.getMails()
         }
     }
 
@@ -27,7 +29,7 @@ class CustomAdapter(private val context: Context, private val contactModelArrayL
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(contactModelArrayList[position], context)
+        holder.bind(contactModelArrayList[position])
     }
 
     override fun getItemViewType(position: Int): Int {
