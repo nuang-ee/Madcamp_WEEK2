@@ -18,9 +18,9 @@ class MyPagerAdapter (fm : androidx.fragment.app.FragmentManager) : FragmentPage
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position){
-            0 -> "탭메뉴1"
-            1 -> "탭메뉴2"
-            else -> {return "탭메뉴3"}
+            0 -> "CONTACTS"
+            1 -> "GALLERY"
+            else -> {return "ON CONSTRUCT"}
         }
     }
 }

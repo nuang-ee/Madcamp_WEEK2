@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import kotlinx.android.synthetic.main.fragment_first.*
 
 class FirstFragment : Fragment() {
 
@@ -17,15 +19,8 @@ class FirstFragment : Fragment() {
     private var customAdapter: CustomAdapter? = null
     private var contactModelArrayList: ArrayList<ContactModel>? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_first, container, false)
-        recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
+    fun fetchContacts(): ArrayList<ContactModel> {
         contactModelArrayList = ArrayList()
-
         //Cursor for getting ID&name -- Grabs whole contacts
         val cursor: Cursor? = context?.contentResolver?.query(
             ContactsContract.Contacts.CONTENT_URI,
@@ -79,6 +74,31 @@ class FirstFragment : Fragment() {
             Log.d("info >>", contactmodel.getNames() + "  " + contactmodel.getNumbers() + "  " + contactmodel.getMails())
         }
         cursor.close()
+        return contactModelArrayList as ArrayList<ContactModel>
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        swipeRefreshLayout.setOnRefreshListener {
+            contactModelArrayList = fetchContacts()
+            customAdapter = context?.let { CustomAdapter(it, contactModelArrayList!!) }
+            recyclerView!!.adapter = customAdapter
+
+            val lm = LinearLayoutManager(context)
+            recyclerView!!.layoutManager = lm
+            recyclerView!!.setHasFixedSize(true)
+            swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_first, container, false)
+        recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
+        contactModelArrayList = fetchContacts()
+
 
         customAdapter = context?.let { CustomAdapter(it, contactModelArrayList!!) }
         recyclerView!!.adapter = customAdapter

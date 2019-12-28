@@ -1243,6 +1243,7 @@ id status_bar_latest_event_content
 id stretch
 id submenuarrow
 id submit_area
+id swipeRefreshLayout
 id tabMode
 id tabs_main
 id tag_accessibility_actions
