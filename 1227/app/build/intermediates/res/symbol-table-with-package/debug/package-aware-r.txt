@@ -687,6 +687,7 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color softGray
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -695,6 +696,7 @@ color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
 color tooltip_background_dark
 color tooltip_background_light
+color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
 dimen abc_action_bar_default_height_material
@@ -1141,6 +1143,7 @@ id filled
 id fixed
 id forever
 id ghost_view
+id glide_custom_view_target_tag
 id gone
 id group_divider
 id groups
@@ -1154,6 +1157,8 @@ id info
 id invisible
 id italic
 id item_touch_helper_previous_elevation
+id ivFullscreenImage
+id ivGalleryImage
 id labeled
 id largeLabel
 id left
@@ -1267,10 +1272,12 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+id tvGalleryTitle
 id uniform
 id unlabeled
 id up
 id useLogo
+id viewPager
 id view_offset_helper
 id viewpager_main
 id visible
@@ -1341,8 +1348,11 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
 layout fragment_first
+layout fragment_gallery_fullscreen
 layout fragment_second
 layout fragment_third
+layout image_fullscreen
+layout img_item
 layout lv_item
 layout mtrl_layout_snackbar
 layout mtrl_layout_snackbar_include

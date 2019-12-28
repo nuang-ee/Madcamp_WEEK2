@@ -13,7 +13,7 @@ class MyPagerAdapter (fm : androidx.fragment.app.FragmentManager) : FragmentPage
     }
 
     override fun getCount(): Int {
-        return 3 //3개니깐
+        return 3
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
