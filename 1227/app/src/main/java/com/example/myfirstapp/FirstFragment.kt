@@ -6,6 +6,7 @@ import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -106,7 +107,6 @@ class FirstFragment : Fragment() {
         val lm = LinearLayoutManager(context)
         recyclerView!!.layoutManager = lm
         recyclerView!!.setHasFixedSize(true)
-
         return view
     }
 }

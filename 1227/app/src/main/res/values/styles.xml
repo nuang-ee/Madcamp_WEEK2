@@ -8,4 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="progressbar_color_under_api21">
+        <item name="colorAccent">@color/softGray</item>
+    </style>
 </resources>
