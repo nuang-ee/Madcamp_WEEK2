@@ -20,7 +20,6 @@ import java.util.*
 
 
 class ThirdFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +38,11 @@ class ThirdFragment : Fragment() {
             val address = getCurrentAddress(latitude, longitude)
             textviewAddress.text = address
             Log.d("address >>", address)
+
+            val addressParsed = address.split("\\s")
+
+            val cityName = addressParsed[1]
+            val citySubName = addressParsed[2]
 
             /*
             Toast.makeText(
