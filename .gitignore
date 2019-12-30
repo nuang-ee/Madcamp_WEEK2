@@ -1,6 +1,17 @@
 *.bin
 *.lock
 *.tab
+
+*.iml
+*.properties
+*.bat
+*.zip
+*.properties
+*.pro
+
+/*/gradle/
+1227/app/build
+/*/build
 1227/.gradle/
 1227/.idea
 1227/build/
