@@ -1,4 +1,0 @@
-#Sat Dec 28 21:32:28 KST 2019
-base.0=C\:\\Users\\q\\Documents\\GitHub\\Madcamp\\1227\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
-path.0=classes.dex
-renamed.0=classes.dex
