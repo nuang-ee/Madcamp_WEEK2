@@ -8,12 +8,10 @@
 *.zip
 *.properties
 *.pro
+*.class
 
-/*/gradle/*
-1227/app/build/*
-/*/build/*
-1227/.gradle/*
-1227/.idea/*
-1227/build/*
-1227/gradle/*
-1227/app/build/*
+gradle/
+build/
+.gradle/
+.idea/
+
