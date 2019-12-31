@@ -11,7 +11,9 @@ import com.example.myfirstapp.adapter.GalleryImageAdapter
 import com.example.myfirstapp.adapter.GalleryImageClickListener
 import com.example.myfirstapp.adapter.Image
 import com.example.myfirstapp.fragment.GalleryFullscreenFragment
-
+import android.provider.MediaStore
+import android.net.Uri
+import android.util.Log
 
 class SecondFragment : Fragment(), GalleryImageClickListener {
     private val SPAN_COUNT = 3
@@ -32,37 +34,31 @@ class SecondFragment : Fragment(), GalleryImageClickListener {
         recyclerView!!.layoutManager = GridLayoutManager(context, SPAN_COUNT)
         recyclerView!!.adapter = galleryAdapter
 
-        loadImages()
+        Log.d("read", "read")
+        readFild()
 
         return view
     }
 
-    private fun loadImages() {
-        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
-        imageList.add(Image("https://i.ibb.co/gM5NNJX/butterfly.jpg", "Butterfly"))
-        imageList.add(Image("https://i.ibb.co/10fFGkZ/car-race.jpg", "Car Racing"))
-        imageList.add(Image("https://i.ibb.co/ygqHsHV/coffee-milk.jpg", "Coffee with Milk"))
-        imageList.add(Image("https://i.ibb.co/7XqwsLw/fox.jpg", "Fox"))
-        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
-        imageList.add(Image("https://i.ibb.co/wc9rSgw/desserts.jpg", "Desserts Table"))
-        imageList.add(Image("https://i.ibb.co/wdrdpKC/kitten.jpg", "Kitten"))
-        imageList.add(Image("https://i.ibb.co/dBCHzXQ/paris.jpg", "Paris Eiffel"))
-        imageList.add(Image("https://i.ibb.co/JKB0KPk/pizza.jpg", "Pizza Time"))
-        imageList.add(Image("https://i.ibb.co/VYYPZGk/salmon.jpg", "Salmon "))
-        imageList.add(Image("https://i.ibb.co/JvWpzYC/sunset.jpg", "Sunset in Beach"))
-        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
-        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
-        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
-        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
-        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
-        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
-        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
-        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
-        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
-        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
-        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
-        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
-        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
+    private fun readFild(){
+        var externalUri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        var proj = arrayOf (MediaStore.Images.Media._ID ,
+                    MediaStore.Images.Media.DISPLAY_NAME ,
+                    MediaStore.Images.Media.MIME_TYPE,
+                    MediaStore.Images.ImageColumns.DATA,
+                    MediaStore.Images.Media.DATA)
+        var cursor = context?.getContentResolver()?.query(externalUri, proj, null, null, null)
+
+        val columnIndexId = cursor?.getColumnIndex(MediaStore.Images.Media._ID)
+        val columnIndexData = cursor?.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
+        val nCol = cursor?.getColumnIndex(MediaStore.Images.Media.DATA)
+
+        while (cursor!!.moveToNext()) {
+            val Photo = Image(externalUri.toString() + '/' +cursor.getString(columnIndexId!!), cursor.getString(columnIndexData!!))
+            imageList.add(Photo)
+        }
+
+        cursor.close()
         galleryAdapter.notifyDataSetChanged()
     }
 
