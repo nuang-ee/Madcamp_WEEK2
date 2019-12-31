@@ -14,12 +14,20 @@ import com.example.myfirstapp.fragment.GalleryFullscreenFragment
 import android.provider.MediaStore
 import android.net.Uri
 import android.util.Log
+import kotlinx.android.synthetic.main.fragment_second.*
 
 class SecondFragment : Fragment(), GalleryImageClickListener {
     private val SPAN_COUNT = 3
     private val imageList = ArrayList<Image>()
     lateinit var galleryAdapter: GalleryImageAdapter
     private var recyclerView: RecyclerView? = null
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        SecondSwipeRefreshLayout.setOnRefreshListener {
+            readFild()
+            SecondSwipeRefreshLayout.isRefreshing = false
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +49,8 @@ class SecondFragment : Fragment(), GalleryImageClickListener {
     }
 
     private fun readFild(){
+        Log.d("read>>", "image")
+        imageList.clear()
         var externalUri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         var proj = arrayOf (MediaStore.Images.Media._ID ,
                     MediaStore.Images.Media.DISPLAY_NAME ,
@@ -51,11 +61,19 @@ class SecondFragment : Fragment(), GalleryImageClickListener {
 
         val columnIndexId = cursor?.getColumnIndex(MediaStore.Images.Media._ID)
         val columnIndexData = cursor?.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
-        val nCol = cursor?.getColumnIndex(MediaStore.Images.Media.DATA)
 
         while (cursor!!.moveToNext()) {
-            val Photo = Image(externalUri.toString() + '/' +cursor.getString(columnIndexId!!), cursor.getString(columnIndexData!!))
-            imageList.add(Photo)
+            var imageName = cursor?.getString(columnIndexData!!)
+            var imageNameList = imageName?.split("/")
+            imageName = imageNameList?.get(imageNameList?.size-1)
+            imageName = imageName?.split(".")?.get(0)
+            var imageUri = externalUri.toString() + '/' +cursor.getString(columnIndexId!!)
+            val Photo = Image(imageUri, imageName!!)
+            if(Photo in imageList){
+
+            }else {
+                imageList.add(Photo)
+            }
         }
 
         cursor.close()
