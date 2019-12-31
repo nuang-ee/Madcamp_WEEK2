@@ -3,7 +3,6 @@
 *.tab
 
 *.iml
-*.properties
 *.bat
 *.zip
 *.properties
