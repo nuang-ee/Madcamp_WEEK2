@@ -8,16 +8,13 @@ import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.fragment_first.*
-import android.R.id.edit
 import android.content.Context.MODE_PRIVATE
-import android.content.Intent
+import android.net.Uri
 import java.lang.Exception
 
 
@@ -42,9 +39,17 @@ class FirstFragment : Fragment() {
             while (cursor?.moveToNext()!!) {
                 val contactmodel = ContactModel()
                 val id = cursor.getString(cursor.getColumnIndex((ContactsContract.Contacts._ID)))
-                val name =
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
                 contactmodel.setNames(name)
+                val photo = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_URI))
+                if(photo == null){
+                    Log.d("photo>>", "null")
+                }else{
+                    contactmodel.setPhoto(Uri.parse(photo))
+                    Log.d("photo>>", photo)
+                }
+
+                //contactmodel.setPhoto(photo)
 
                 val phoneCursor = context?.contentResolver?.query(
                     ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -122,7 +127,7 @@ class FirstFragment : Fragment() {
 
     private fun checkFirstRun() {
         val preferences: SharedPreferences = activity!!.getSharedPreferences("com.example.myfirstapp", MODE_PRIVATE)
-        val isFirstRun = preferences.getBoolean("isFirstRun", true)
+        val isFirstRun = preferences?.getBoolean("isFirstRun", true)
         if (isFirstRun) {
             fetchContacts().execute()
             preferences.edit().putBoolean("ifFirstRun", false).commit()

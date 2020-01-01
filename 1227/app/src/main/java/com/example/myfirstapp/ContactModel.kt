@@ -1,9 +1,12 @@
 package com.example.myfirstapp
 
+import android.net.Uri
+
 class ContactModel {
     var name: String? = null
     var number: String? = null
     var mail: String? = null
+    var photoUri: Uri? = null
 
     fun setNames(name: String) {
         this.name = name
@@ -27,5 +30,12 @@ class ContactModel {
 
     fun getMails(): String {
         return mail.toString()
+    }
+    fun setPhoto(photo: Uri) {
+        this.photoUri = photo
+    }
+
+    fun getPhoto(): Uri? {
+        return photoUri
     }
 }
