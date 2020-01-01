@@ -20,7 +20,7 @@ class MyPagerAdapter (fm : androidx.fragment.app.FragmentManager) : FragmentPage
         return when (position){
             0 -> "CONTACTS"
             1 -> "GALLERY"
-            else -> {return "ON CONSTRUCT"}
+            else -> {return "WEATHERS"}
         }
     }
 }
