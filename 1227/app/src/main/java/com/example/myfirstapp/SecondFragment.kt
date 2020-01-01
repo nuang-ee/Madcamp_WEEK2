@@ -63,9 +63,9 @@ class SecondFragment : Fragment(), GalleryImageClickListener {
         val columnIndexData = cursor?.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
 
         while (cursor!!.moveToNext()) {
-            var imageName = cursor?.getString(columnIndexData!!)
+            var imageName = cursor.getString(columnIndexData!!)
             var imageNameList = imageName?.split("/")
-            imageName = imageNameList?.get(imageNameList?.size-1)
+            imageName = imageNameList?.get(imageNameList.size -1)
             imageName = imageName?.split(".")?.get(0)
             var imageUri = externalUri.toString() + '/' +cursor.getString(columnIndexId!!)
             val Photo = Image(imageUri, imageName!!)

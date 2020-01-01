@@ -1,6 +1,9 @@
 package com.example.myfirstapp
 
 
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,6 +36,10 @@ class ThirdFragment : Fragment() {
         "서울", "부산", "대구", "인천", "광주", "대전", "울산", "경기", "강원", "충북", "충남",
         "전북", "전남", "경북", "경남", "제주", "세종"
     )
+
+    fun setBackGround() {
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -122,6 +129,12 @@ class ThirdFragment : Fragment() {
             return response
         }
 
+        //colorscheme from : https://codepen.io/bork/pen/wJhEm, sunrise = 7~(index: 0~), sunset = 19~(index: 12~)
+        val colorPaletteTop = arrayOf("#12a1c0", "#74d4cc", "#efeebc", "#fee154", "#fdc352", "#ffac6f", "#fda65a", "#fd9e58",  "#f18448", "#f06b7e", "#ca5a92", "#5b2c83",
+            "#371a79", "#28166b", "#192861", "#040b3c", "#040b3c", "#012459", "#003972", "#003972", "#004372", "#004372", "#016792", "#07729f")
+        val colorPaletteBottom = arrayOf("#07506e", "#1386a6", "#61d0cf", "#a3dec6", "#e8ed92", "#ffe467", "#ffe467", "#ffe467", "#ffd364", "#f9a856", "#f4896b", "#d1628b",
+            "#713684", "#45217c", "#372074", "#233072", "#012459", "#001322", "#001322", "#001322", "#00182b", "#011d34", "#00182b", "#042c47")
+
         @RequiresApi(Build.VERSION_CODES.CUPCAKE)
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
@@ -135,6 +148,7 @@ class ThirdFragment : Fragment() {
 
                 val updatedAt:Long = jsonObj.getLong("dt")
                 val updatedAtText = "Updated at: "+ SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(Date(updatedAt*1000))
+
                 val temp = main.getString("temp")+"°C"
                 val tempMin = "Min Temp: " + main.getString("temp_min")+"°C"
                 val tempMax = "Max Temp: " + main.getString("temp_max")+"°C"
@@ -143,10 +157,31 @@ class ThirdFragment : Fragment() {
 
                 val sunrise:Long = sys.getLong("sunrise")
                 val sunset:Long = sys.getLong("sunset")
+
+                val sunriseTomorrow = sunrise + 86400
+                val dayTime = sunset - sunrise
+                val nightTime = sunriseTomorrow - sunset
+                val currentTime = System.currentTimeMillis() / 1000
+
+
+                Log.d("times : ", "$currentTime, $updatedAt, $sunset, $sunrise")
+                val index = if (currentTime >= sunset) {
+                    //nightTime
+                    (((currentTime - sunset) * 12) / (nightTime)).toInt() + 12
+                    //Log.d("index calculated : ", "(($currentTime - $sunset) * 12) / $nightTime + 12)")
+                } else {
+                    (((currentTime - sunrise) * 12) / (dayTime)).toInt()
+                    //Log.d("index calculated : ", "(($currentTime - $sunrise) * 12) / $dayTime)")
+                }
+                Log.d("index is :", index.toString())
+                val colors = intArrayOf(Color.parseColor(colorPaletteTop[index]), Color.parseColor(colorPaletteBottom[index]))
+                val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors)
+                view?.findViewById<FrameLayout>(R.id.backGround)?.background = gradientDrawable
+
                 val windSpeed = wind.getString("speed")
                 val weatherDescription = weather.getString("description")
 
-                val address = jsonObj.getString("name")+", "+sys.getString("country")
+                jsonObj.getString("name")+", "+sys.getString("country")
 
                 /* Populating extracted data into our views */
                 //view?.findViewById<TextView>(R.id.address)?.text = address
@@ -205,6 +240,7 @@ class ThirdFragment : Fragment() {
             return response
         }
 
+        @SuppressLint("SetTextI18n")
         @RequiresApi(Build.VERSION_CODES.CUPCAKE)
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
@@ -223,15 +259,32 @@ class ThirdFragment : Fragment() {
                         val pm10Value = tempObject.getString("pm10Value")
                         val pm25Value = tempObject.getString("pm25Value")
                         Log.d("value>>", pm10Value + "  " + pm25Value)
-                        view?.findViewById<TextView>(R.id.pm10Value)?.text = pm10Value
-                        view?.findViewById<TextView>(R.id.pm25Value)?.text = pm25Value
+                        view?.findViewById<TextView>(R.id.pm10Value)?.text = "$pm10Value㎍/m³"
+                        view?.findViewById<TextView>(R.id.pm25Value)?.text = "$pm25Value㎍/m³"
+
+                        when {
+                            pm10Value.toInt() <= 30 -> view?.findViewById<ImageView>(R.id.imageView)?.setImageResource(R.drawable.ic_happy)
+                            pm10Value.toInt() <= 80 -> view?.findViewById<ImageView>(R.id.imageView)?.setImageResource(R.drawable.ic_fine)
+                            pm10Value.toInt() <= 150 -> view?.findViewById<ImageView>(R.id.imageView)
+                                ?.setImageResource(R.drawable.ic_angry)
+                            else -> view?.findViewById<ImageView>(R.id.imageView)?.setImageResource(R.drawable.ic_devil)
+                        }
+
+                        when {
+                            pm25Value.toInt() <= 15 -> view?.findViewById<ImageView>(R.id.imageView2)?.setImageResource(R.drawable.ic_happy)
+                            pm25Value.toInt() <= 35 -> view?.findViewById<ImageView>(R.id.imageView2)?.setImageResource(R.drawable.ic_fine)
+                            pm25Value.toInt() <= 75 -> view?.findViewById<ImageView>(R.id.imageView2)
+                                ?.setImageResource(R.drawable.ic_angry)
+                            else -> view?.findViewById<ImageView>(R.id.imageView2)?.setImageResource(R.drawable.ic_devil)
+                        }
+
+
                         break
                     }
                 }
             } catch (e: Exception) {
                 Log.d("exception>>", "exception???")
                 view?.findViewById<ProgressBar>(R.id.loader)?.visibility = View.GONE
-                view?.findViewById<TextView>(R.id.errorText)?.visibility = View.VISIBLE
             }
         }
     }

@@ -169,7 +169,7 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE)
         })
         builder.setNegativeButton("취소",
-            DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+            DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
         builder.create().show()
     }
 

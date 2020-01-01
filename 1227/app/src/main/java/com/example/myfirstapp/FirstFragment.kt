@@ -122,7 +122,7 @@ class FirstFragment : Fragment() {
 
     private fun checkFirstRun() {
         val preferences: SharedPreferences = activity!!.getSharedPreferences("com.example.myfirstapp", MODE_PRIVATE)
-        val isFirstRun = preferences?.getBoolean("isFirstRun", true)
+        val isFirstRun = preferences.getBoolean("isFirstRun", true)
         if (isFirstRun) {
             fetchContacts().execute()
             preferences.edit().putBoolean("ifFirstRun", false).commit()
