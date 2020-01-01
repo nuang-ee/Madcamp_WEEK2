@@ -1,6 +1,5 @@
 package com.example.myfirstapp.adapter
 
-data class Image (
-    val imageUrl: String,
-    val title: String
-)
+import java.io.Serializable
+
+data class Image(val imageUrl: String, val title: String): Serializable

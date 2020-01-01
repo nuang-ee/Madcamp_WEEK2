@@ -1,6 +1,10 @@
 package com.example.myfirstapp
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myfirstapp.adapter.GalleryImageAdapter
 import com.example.myfirstapp.adapter.GalleryImageClickListener
 import com.example.myfirstapp.adapter.Image
-import com.example.myfirstapp.fragment.GalleryFullscreenFragment
-import android.provider.MediaStore
-import android.net.Uri
-import android.util.Log
+import com.example.myfirstapp.helper.GalleryFullscreenActivity
 import kotlinx.android.synthetic.main.fragment_second.*
+import java.io.Serializable
 
 class SecondFragment : Fragment(), GalleryImageClickListener {
     private val SPAN_COUNT = 3
@@ -81,12 +83,13 @@ class SecondFragment : Fragment(), GalleryImageClickListener {
     }
 
     override fun onClick(position: Int) {
-        val bundle = Bundle()
-        bundle.putSerializable("images", imageList)
-        bundle.putInt("position", position)
-        val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
-        val galleryFragment = GalleryFullscreenFragment()
-        galleryFragment.setArguments(bundle)
-        galleryFragment.show(fragmentTransaction, "gallery")
+        //val bundle = Bundle()
+        //bundle.putSerializable("images", imageList)
+        //bundle.putInt("position", position)
+        val intent = Intent(activity, GalleryFullscreenActivity::class.java)
+        intent.putExtra("images", imageList as Serializable)
+        intent.putExtra("position", position)
+        startActivity(intent)
+
     }
 }
