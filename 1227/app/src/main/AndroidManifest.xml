@@ -16,8 +16,13 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ys_egg">
+            <intent-filter>
+                <action android:name="android.intent.action.ys_egg" />
+                <category android:name="android.intent.category.APP_CONTACTS" />
             </intent-filter>
         </activity>
     </application>

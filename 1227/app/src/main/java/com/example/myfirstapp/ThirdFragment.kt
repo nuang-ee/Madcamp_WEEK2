@@ -2,6 +2,7 @@ package com.example.myfirstapp
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -18,8 +19,6 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.myfirstapp.helper.GpsTracker
-import kotlinx.android.synthetic.main.fragment_third.*
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.net.URL
@@ -36,6 +35,8 @@ class ThirdFragment : Fragment() {
         "서울", "부산", "대구", "인천", "광주", "대전", "울산", "경기", "강원", "충북", "충남",
         "전북", "전남", "경북", "경남", "제주", "세종"
     )
+    var carrot_size = 0
+    var sunFlag = false
 
     fun setBackGround() {
 
@@ -47,6 +48,31 @@ class ThirdFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_third, container, false)
+
+        val water = view.findViewById(R.id.water) as ImageView
+        water.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(v: View?) {
+                carrot_size = carrot_size + 1
+            }
+        })
+        val sun = view.findViewById(R.id.sun) as ImageView
+        sun.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(v: View?) {
+                sunFlag = true
+            }
+        })
+        val carrot = view.findViewById(R.id.carrot) as ImageView
+        carrot.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(v: View?) {
+                if(3<=carrot_size && sunFlag) {
+                    carrot_size = 0
+                    sunFlag = false
+                    val intent = Intent(view.context, ys_egg::class.java)
+                    activity?.startActivity(intent)
+                }
+            }
+        })
+
         val textviewAddress = view.findViewById(R.id.address) as TextView
         //val ShowLocationButton = view.findViewById(R.id.button) as Button
         //ShowLocationButton.setOnClickListener(View.OnClickListener {

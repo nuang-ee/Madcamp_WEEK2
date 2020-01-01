@@ -96,7 +96,6 @@
                     android:text="@string/max_temperature"
                     android:textColor="@color/white" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -216,6 +215,13 @@
             android:weightSum="5"
             app:layout_constraintBottom_toBottomOf="parent">
 
+            <ImageView
+                android:id="@+id/carrot"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/ic_carrot"
+                android:tint="#FFFFFF" />
             <LinearLayout
                 android:id="@+id/sun_rise"
                 android:layout_width="wrap_content"
@@ -225,6 +231,7 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/sun"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/sunrise"
@@ -259,6 +266,7 @@
                 android:padding="8dp">
 
                 <ImageView
+                    android:id="@+id/water"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/humidity"
