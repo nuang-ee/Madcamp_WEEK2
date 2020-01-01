@@ -12,4 +12,5 @@
     <string name="sky_status">sky_status</string>
     <string name="ultra_fine_dust">Ultrafine</string>
     <string name="fine_dust">Finedust</string>
+    <string name="api_ref">API by AirKorea</string>
 </resources>
