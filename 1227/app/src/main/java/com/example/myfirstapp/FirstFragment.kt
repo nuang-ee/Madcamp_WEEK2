@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_first.*
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.net.Uri
+import android.widget.ImageView
 import java.lang.Exception
 
 
@@ -141,6 +143,13 @@ class FirstFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_first, container, false)
         recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
+        val mouse = view.findViewById(R.id.mouse) as ImageView
+        mouse.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(v: View?) {
+                val intent = Intent(view.context, hihi::class.java)
+                activity?.startActivity(intent)
+            }
+        })
         checkFirstRun()
         return view
     }

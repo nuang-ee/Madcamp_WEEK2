@@ -27,6 +27,7 @@
 		<activity android:name=".helper.GalleryFullscreenActivity"
             android:theme="@style/SlidrTheme"></activity>
         <activity android:name=".ys_egg"></activity>
+        <activity android:name=".hihi"></activity>
     </application>
 
 </manifest>
