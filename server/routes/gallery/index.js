@@ -1,8 +1,8 @@
 const express = require('express')
-const contact = require('./contact')
+const gallery = require('./gallery')
 
 const router = express.Router()
 
-router.get('/gallery/:id', contact.getContact);
+router.get('/gallery/:id', gallery.getGallery);
 
 module.exports = router;

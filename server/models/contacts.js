@@ -15,7 +15,7 @@ const contactSchema = new Schema({
     },
     phone_number: String,
     email: String,
-    thumbnail: { data: Butter, contentType: String }
+    thumbnail: { data: Buffer, contentType: String }
 });
 
 module.exports = mongoose.model ('Contact', contactSchema)
