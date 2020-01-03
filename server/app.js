@@ -38,9 +38,12 @@ mongodb.once('open', () => {
 });
 
 const url = 'mongodb://127.0.0.1:27017'
-mongoose.connect(url)
-
-/**
- * call defined collections (Maybe 'contacts' and 'gallery')
- */
-const Contact = require('./models/contacts');   // call contact schema
+mongoose.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+  if (err) {
+    console.error(err)
+    return;
+  }
+})

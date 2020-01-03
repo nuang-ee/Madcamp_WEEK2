@@ -9,10 +9,7 @@ const contactSchema = new Schema({
         type: Number,
         required: "_id is essential"
     },
-    user_id: {
-        type: Number,
-        required: "user_id is essential"
-    },
+    name: String,
     phone_number: String,
     email: String,
     thumbnail: { data: Buffer, contentType: String }

@@ -1,4 +1,5 @@
 const mongoose = require ('mongoose');
+const contacts = require('./contacts')
 const Schema = mongoose.Schema;
 
 /**
@@ -17,6 +18,9 @@ const userSchema = new Schema({
     password: {     // pending encryption
         type: String,
         required: "password is essential"
+    },
+    contacts: {
+        type: contactSchema
     }
 });
 
