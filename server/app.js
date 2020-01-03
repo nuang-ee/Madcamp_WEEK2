@@ -15,11 +15,15 @@ app.use(bodyParser.json())
  */
 const port = process.env.PORT || 4001;
 
-const router = require('./routes')(app)
+const router = require('./routes')
 
 /**
  * run server
  */
+// app.get('/', (req, res) => {
+//     res.send("Successfully accessed to server!");
+// })
+app.set('views', __dirname + '/');
 const server = app.listen(port, () => {
     console.log("Express server has started on port " + port)
 })
