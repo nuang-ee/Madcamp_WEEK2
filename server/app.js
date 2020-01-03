@@ -15,11 +15,15 @@ app.use(bodyParser.json())
  */
 const port = process.env.PORT || 4001;
 
-const router = require('./routes')(app)
+const router = require('./routes')
 
 /**
  * run server
  */
+app.get('/', (req, res) => {
+    res.send("Successfully accessed to server!")
+})
+
 const server = app.listen(port, () => {
     console.log("Express server has started on port " + port)
 })
@@ -33,7 +37,8 @@ mongodb.once('open', () => {
     console.log("Connected to mongodb server");
 });
 
-mongoose.connect('mongodb://localhost/mongodb_tutorial');
+const url = 'mongodb://127.0.0.1:27017'
+mongoose.connect(url)
 
 /**
  * call defined collections (Maybe 'contacts' and 'gallery')
