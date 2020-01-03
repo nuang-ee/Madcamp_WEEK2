@@ -20,7 +20,10 @@ const userSchema = new Schema({
         required: "password is essential"
     },
     contacts: {
-        type: contactSchema
+        type: Schema
+    },
+    images: {
+        type: Schema
     }
 });
 
