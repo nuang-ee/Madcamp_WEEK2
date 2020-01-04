@@ -108,3 +108,22 @@ dist
 *.jpeg
 *.jpg
 *.gif
+
+# android project ignore
+*.bin
+*.lock
+*.tab
+
+*.iml
+*.bat
+*.zip
+*.properties
+*.pro
+*.class
+
+gradle/
+build/
+.gradle/
+.idea/
+
+
