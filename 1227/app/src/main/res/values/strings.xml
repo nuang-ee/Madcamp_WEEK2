@@ -13,4 +13,7 @@
     <string name="ultra_fine_dust">Ultrafine</string>
     <string name="fine_dust">Finedust</string>
     <string name="api_ref">API by AirKorea</string>
+    <string name="facebook_app_id">469078707340611</string>
+    <string name="fb_login_protocol_scheme">fb469078707340611</string>
+
 </resources>
