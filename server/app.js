@@ -42,7 +42,7 @@ mongodb.once('open', () => {
     console.log("Connected to mongodb server");
 });
 
-const url = 'mongodb://127.0.0.1:27017'
+const url = 'mongodb://127.0.0.1:27017/users'
 mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -51,4 +51,5 @@ mongoose.connect(url, {
     console.error(err)
     return;
   }
+  console.log(`mongodb ad ${url}`)
 })

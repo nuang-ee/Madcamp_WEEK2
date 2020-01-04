@@ -1,29 +1,22 @@
 const mongoose = require ('mongoose');
-const contacts = require('./contacts')
+const ContactSchema = require('./contact').schema;
+const ImageSchema = require('./image').schema;
 const Schema = mongoose.Schema;
 
 /**
  * Create Schema
+ * https://stackoverflow.com/questions/43024285/embedding-schemas-is-giving-error/43024503
  */
 const userSchema = new Schema({
-    _id: {
-        type: Number,
-        required: "_id is essential",
-        ref: "Contact"  // refers model "Contact"
-    },
     facebook_id: {  // pending encryption
         type: String,
-        required: "facebook_id is essential"
+        required: true
     },
-    password: {     // pending encryption
-        type: String,
-        required: "password is essential"
+    contact: {
+        type: ContactSchema
     },
-    contacts: {
-        type: Schema
-    },
-    images: {
-        type: Schema
+    image: {
+        type: ImageSchema
     }
 });
 
