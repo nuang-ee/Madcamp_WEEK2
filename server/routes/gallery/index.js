@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 // Init Upload
 const upload = multer({
   storage: storage,
-  limits:{fileSize: 1000000},
+  limits:{fileSize: 5 * 1024 * 1024},
   fileFilter: function(req, file, cb){
     checkFileType(file, cb);
   }
@@ -47,24 +47,17 @@ const router = express.Router()
 // Public Folder
 //app.use(express.static('./public'));
 
-router.get('/', (req, res) => res.render('index'));
+router.get('/', (req, res) => res.send("Welcome to Gallery Page!"));
 
 router.post('/upload', (req, res) => {
   upload(req, res, (err) => {
     if(err){
-      res.render('index', {
-        msg: err
-      });
+      console.log(err);
     } else {
       if(req.file == undefined){
-        res.render('index', {
-          msg: 'Error: No File Selected!'
-        });
+        res.send('Error: No File Selected!');
       } else {
-        res.render('index', {
-          msg: 'File Uploaded!',
-          file: `uploads/${req.file.filename}`
-        });
+        res.send('File Uploaded!');
       }
     }
   });
