@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">AWESOME PROJECT</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="min_temperature">Min Temperature</string>
+    <string name="max_temperature">Max Temperature</string>
+    <string name="address_name">Location</string>
+    <string name="update_time">updated at: XXXX/XX/XX</string>
+    <string name="sky_status">sky_status</string>
+    <string name="ultra_fine_dust">Ultrafine</string>
+    <string name="fine_dust">Finedust</string>
+    <string name="api_ref">API by AirKorea</string>
+    <string name="facebook_app_id">469078707340611</string>
+    <string name="fb_login_protocol_scheme">fb469078707340611</string>
+
+</resources>
