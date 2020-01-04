@@ -1,13 +1,3 @@
-const express = require('express');
-const upload = require('./uploadImage.js');
-// Init app
-//const app = express();
-
-// EJS
-//app.set('view engine', 'ejs');
-//
-//for debug===================
-/*
 const path = require('path');
 const multer = require('multer');
 // Set The Storage Engine
@@ -42,34 +32,20 @@ function checkFileType(file, cb){
     cb('Error: Images Only!');
   }
 }
-*/
-//============================
 
-
-const router = express.Router()
-
-// Public Folder
-//app.use(express.static('./public'));
-
-router.get('/', (req, res) => res.send("Welcome to Gallery Page!"));
-router.post('/upload', (req, res) => {
-  console.log(req)
-  upload.getImage(req, res)
-});
-/*
-router.post('/upload', (req, res) => {
+exports.getImage = (req, res) => {
   console.log(req)
   upload(req, res, (err) => {
-    if (err) {
+    if(err){
       console.log(err);
     } else {
-      if(req.file == undefined) {
-        res.send("err: no file selected");
+      if(req.file == undefined){
+        res.send('Error: No File Selected!');
       } else {
-        res.send('file uploaded');
+        res.send('File Uploaded!');
       }
     }
   });
-});
-*/
-module.exports = router;
+};
+
+
