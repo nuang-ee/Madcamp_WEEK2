@@ -37,17 +37,19 @@ function checkFileType(file, cb){
 }
 
 // Init app
-const app = express();
+//const app = express();
 
 // EJS
-app.set('view engine', 'ejs');
+//app.set('view engine', 'ejs');
+
+const router = express.Router()
 
 // Public Folder
-app.use(express.static('./public'));
+//app.use(express.static('./public'));
 
-app.get('/', (req, res) => res.render('index'));
+router.get('/', (req, res) => res.render('index'));
 
-app.post('/upload', (req, res) => {
+router.post('/upload', (req, res) => {
   upload(req, res, (err) => {
     if(err){
       res.render('index', {
@@ -68,6 +70,4 @@ app.post('/upload', (req, res) => {
   });
 });
 
-const port = 3002;
-
-app.listen(port, () => console.log(`Server started on port ${port}`));
+module.exports = router;

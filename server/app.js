@@ -13,16 +13,21 @@ app.use(bodyParser.json())
 /**
  * set port number (default === 4001)
  */
-const port = process.env.PORT || 4001;
+const port = process.env.PORT || 4002;
 
-const router = require('./routes')
+const router = require('./routes/index');
+app.use('/', router);
 
 /**
  * run server
  */
+
+/*
 app.get('/', (req, res) => {
     res.send("Successfully accessed to server!")
 })
+*/
+
 
 const server = app.listen(port, () => {
     console.log("Express server has started on port " + port)
