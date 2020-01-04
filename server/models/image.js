@@ -2,18 +2,14 @@ const mongoose = require('mongoose');
 const imageSchema = new mongoose.Schema(
   { 
     contentUrl: {
-      type: String
+      type: String,
       required: true
-    }
-    contentType: {
-      type: String
-      required: true
-    }
+    },
     localCached: {
-      type: Boolean
+      type: Boolean,
       default: false
     }
   }
-});
+);
 
 module.exports = mongoose.model('Image', imageSchema)
