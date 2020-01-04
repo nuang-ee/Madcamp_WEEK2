@@ -5,14 +5,24 @@ const Schema = mongoose.Schema;
  * Create Schema
  */
 const contactSchema = new Schema({
-    _id: {
-        type: Number,
-        required: "_id is essential"
+    // _id: {
+    //     type: Number,
+    //     required: "_id is essential"
+    // },
+    name: {
+        type: String,
+        required: true
     },
-    name: String,
-    phone_number: String,
+    phoneNumber: {
+        type: String,
+        required: true
+    },
     email: String,
-    thumbnail: { data: Buffer, contentType: String }
+    thumbnail: { data: String, contentType: String },
+    localCached: {
+        type: Boolean,
+        required: true
+    }
 });
 
 module.exports = mongoose.model ('Contact', contactSchema)
