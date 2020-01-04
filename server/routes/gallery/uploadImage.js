@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 // Configure mongoose
 
 // Connect to MongoDB
-
+/*
 const db = mongoose.connection;
 db.on('error', console.error);
 //connected to server
@@ -16,7 +16,7 @@ db.once('open', function() {
 });
 
 mongoose.connect('mongodb://localhost:27017/image');
-
+*/
 
 // Define Model
 const image = require('../../models/image');

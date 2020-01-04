@@ -33,8 +33,7 @@ exports.getContact = (req, res) => {
 };
 
 exports.addContact = (req, res) => {
-//    const { userId } = req.params;
-    const { name, phoneNumber, email, thumbnail, localCached } = req.body;
+    const { userId, name, phoneNumber, email, thumbnail, localCached } = req.body;
 
     const contact = new contactModel()
     contact.name = name;
@@ -42,15 +41,19 @@ exports.addContact = (req, res) => {
     contact.email = email;
     contact.thumbnail = thumbnail;
     contact.localCached = localCached;
-
+    contact.markModified('name')
+    contact.markModified('phoneNumber')
+    contact.markModified('email')
+    contact.markModified('thumbnail')
+    contact.markModified('localCached')
     contact.save((err) => {
         if (err) {
             console.error(err);
             res.json({ result: 0 });
             return;
+        } else {
+            res.json({ result: 1 });
         }
-
-        res.json({ result: 1 });
     })
 };
 

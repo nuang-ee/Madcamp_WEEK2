@@ -51,4 +51,5 @@ mongoose.connect(url, {
     console.error(err)
     return;
   }
+  console.log(`mongodb ad ${url}`)
 })

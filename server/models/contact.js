@@ -18,7 +18,7 @@ const contactSchema = new Schema({
         required: true
     },
     email: String,
-    thumbnail: { data: String, contentType: String },
+    thumbnail: String,
     localCached: {
         type: Boolean,
         required: true
