@@ -1,5 +1,5 @@
 const express = require('express');
-const upload = require('./uploadImage.js');
+const upload = require('./image.js');
 // Init app
 //const app = express();
 
