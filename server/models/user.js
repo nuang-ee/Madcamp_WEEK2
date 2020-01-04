@@ -1,5 +1,4 @@
 const mongoose = require ('mongoose');
-const contacts = require('./contacts')
 const Schema = mongoose.Schema;
 
 /**
@@ -19,7 +18,7 @@ const userSchema = new Schema({
         type: String,
         required: "password is essential"
     },
-    contacts: {
+    contact: {
         type: Schema
     },
     images: {
