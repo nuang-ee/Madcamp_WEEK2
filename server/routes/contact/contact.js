@@ -31,8 +31,11 @@ exports.getContact = (req, res) => {
     //     res.status(500).send(e);
     // }
 };
-
+// add contact to user's data
 exports.addContact = (req, res) => {
+    /**
+     * Todo: user_id (facebook id)로 구별하기
+     */
     const { userId, name, phoneNumber, email, thumbnail, localCached } = req.body;
 
     const contact = new contactModel()
@@ -46,6 +49,7 @@ exports.addContact = (req, res) => {
     contact.markModified('email')
     contact.markModified('thumbnail')
     contact.markModified('localCached')
+    
     contact.save((err) => {
         if (err) {
             console.error(err);

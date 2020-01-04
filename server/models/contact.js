@@ -5,10 +5,6 @@ const Schema = mongoose.Schema;
  * Create Schema
  */
 const contactSchema = new Schema({
-    // _id: {
-    //     type: Number,
-    //     required: "_id is essential"
-    // },
     name: {
         type: String,
         required: true
@@ -21,7 +17,7 @@ const contactSchema = new Schema({
     thumbnail: String,
     localCached: {
         type: Boolean,
-        required: true
+        default: false
     }
 });
 

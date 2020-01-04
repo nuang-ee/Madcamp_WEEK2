@@ -15,7 +15,7 @@ const userSchema = new Schema({
     contact: {
         type: ContactSchema
     },
-    images: {
+    image: {
         type: ImageSchema
     }
 });

@@ -33,6 +33,11 @@ function checkFileType(file, cb) {
     }
 }
 
+
+
+
+// 아래는 routes/gallery에 있어야 하는 코드들
+
 // Define Model
 const image = require('../../models/image');
 
