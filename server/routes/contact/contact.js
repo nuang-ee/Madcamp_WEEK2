@@ -13,7 +13,7 @@ exports.getContact = (req, res) => {
             console.error(err);
             res.status(500).send(e);
         } else {
-            res.json(user.contact)  // return uid's contact
+            res.json(user.contact.filter(e => e.localCached === true))  // return uid's contact ('localCached === true' only)
         }
     });
 };

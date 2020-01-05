@@ -14,7 +14,7 @@ const router = express.Router()
 router.get('/', (req, res) => res.send("Welcome to Gallery Page!"));
 
 //upload image(single)
-router.post('/upload', upload.saveImage);
+router.post('/upload', upload.addImage);
 
 //fetch image(single)
 //router.get(
