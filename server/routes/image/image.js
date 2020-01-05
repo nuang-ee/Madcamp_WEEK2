@@ -2,6 +2,7 @@
 const imageModel = require('../../models/image');
 const userModel = require('../../models/user');
 const upload = require('../../lib/imageProcessor').upload;
+const ObjectId = require('mongodb').ObjectId;
 
 
 exports.getImage = (req, res) => {
@@ -12,11 +13,15 @@ exports.getImage = (req, res) => {
       console.error(err);
       res.status(500).send(e);
     } else {
-      res.json(user.image);
+      const imgUrlList = user.image.map(e => "/static/" + e.contentUrl)
+      res.json(imgUrlList)    // send image path
     }
   })
 }
-
+/**
+ * 이미지 띄우기 참고
+ * https://expressjs.com/ko/starter/static-files.html
+ */
 exports.addImage = (req, res) => {
   upload(req, res, (err) => {
     if(err){
@@ -62,10 +67,10 @@ exports.deleteImage = (req, res) => {
       res.status(500).send(e);
     } else {
       const image = user.image.find(e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id)))
-      user.contact = user.image.filter(e => e !== image)
+      user.image = user.image.filter(e => e !== image)
       user.save((err) => {
         if (err) {
-          console.error(er)
+          console.error(err)
           res.json({ result: 0 })
         } else {
           res.json({ result: 1 })
