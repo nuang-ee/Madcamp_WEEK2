@@ -1,6 +1,7 @@
 const contactModel = require('../../models/contact');
 const userModel = require('../../models/user');
 const upload = require('../../lib/imageProcessor').upload;
+const ObjectId = require('mongodb').ObjectId;
 
 
 exports.getContact = (req, res) => {
@@ -80,7 +81,7 @@ exports.updateContact = (req, res) => {
                         console.error(err);
                         res.status(500).send(e);
                     } else {
-                        let contact = user.contact.find(e => e._id === _id);
+                        let contact = user.contact.find(e => e._id === ObjectId(_id));
                         if (contact) {
                             const i = user.contact.indexOf(contact);
                             if (name) contact.name = name;
@@ -107,7 +108,7 @@ exports.updateContact = (req, res) => {
 }
 
 exports.deleteContact = (req, res) => {
-    const { uid, _id } = req.params
+    const { uid, _id } = req.body
 
     // find user in user collection
     userModel.find({ uid }, (err, [user]) => {  // [user], since find() returns list
@@ -115,14 +116,16 @@ exports.deleteContact = (req, res) => {
             console.error(err);
             res.status(500).send(e);
         } else {
-            res.json(user.contact)  // return uid's contact
+            const contact = user.contact.find(e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id)))
+            user.contact = user.contact.filter(e => e !== contact)
+            user.save((err) => {
+                if (err) {
+                    console.error(err);
+                    res.json({ result: 0 });
+                } else {
+                    res.json({ result: 1 });
+                }
+            })
         }
     });
-
-    contactModel.remove({ _id: _id }, (err, output) => {
-        if (err) {
-            return res.statue(500).json({ error: 'database failure' });
-        }
-        res.status(204).end();  // No contents
-    })
 }
