@@ -7,25 +7,6 @@ exports.addUser = (req, res) => {
     const { uid } = req.body;        // maybe facebook id
     const contact = new contactModel(); // contact data for user
     const image = new imageModel();     // image(gallery) data for user
-/*
-
-    required field 어떻게 할지 논의하기
-
-    // init 'required' attributes
-    contact.name = ""
-    contact.phoneNumber = ""
-    image.contentUrl = ""
-*/
-
-    /**
-     * test code
-     */
-    contact.name = "MinsuKim"
-    contact.phoneNumber = "010-8302-5759"
-    image.contentUrl = "asd"
-    /**
-     * test code
-     */
 
     const user = new userModel();   // user to be added
     user.uid = uid;

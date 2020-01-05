@@ -35,31 +35,30 @@ exports.addContact = (req, res) => {
                         console.error(err);
                         res.status(500).send(e);
                     } else {
-                        res.json(user.contact)  // return uid's contact
+                        // new contact
+                        const contact = new contactModel()
+                        contact.name = name;
+                        contact.phoneNumber = phoneNumber;
+                        contact.email = email;
+                        contact.thumbnail = req.file.filename;  // image
+                        contact.localCached = localCached;
+                        contact.markModified('name')
+                        contact.markModified('phoneNumber')
+                        contact.markModified('email')
+                        contact.markModified('thumbnail')
+                        contact.markModified('localCached')
+                        // append added contact
+                        user.contact.push(contact);
+                        user.save((err) => {
+                            if (err) {
+                                console.error(err);
+                                res.json({ result: 0 });
+                            } else {
+                                res.json({ result: 1 });
+                            }
+                        })
                     }
                 });
-
-                const contact = new contactModel()
-                contact.name = name;
-                contact.phoneNumber = phoneNumber;
-                contact.email = email;
-                contact.thumbnail = req.file.filename;  // image
-                contact.localCached = localCached;
-                contact.markModified('name')
-                contact.markModified('phoneNumber')
-                contact.markModified('email')
-                contact.markModified('thumbnail')
-                contact.markModified('localCached')
-                
-                contact.save((err) => {
-                    if (err) {
-                        console.error(err);
-                        res.json({ result: 0 });
-                        return;
-                    } else {
-                        res.json({ result: 1 });
-                    }
-                })
             }
         }
     })

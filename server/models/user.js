@@ -12,12 +12,12 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    contact: {
+    contact: [{
         type: ContactSchema
-    },
-    image: {
+    }],
+    image: [{
         type: ImageSchema
-    }
+    }]
 });
 
 module.exports = mongoose.model ('User', userSchema);
