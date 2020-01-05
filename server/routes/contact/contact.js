@@ -52,7 +52,7 @@ exports.addContact = (req, res) => {
                                 console.error(err);
                                 res.json({ result: 0 });
                             } else {
-                                res.json({ result: 1 });
+                                res.json({ _id: contact._id, result: 1 });
                             }
                         })
                     }
