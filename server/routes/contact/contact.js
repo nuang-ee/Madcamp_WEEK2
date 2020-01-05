@@ -63,11 +63,6 @@ exports.addContact = (req, res) => {
 };
 
 exports.updateContact = (req, res) => {
-
-    // uid is user id, _id is id of contact to be updated
-    const { uid, _id, name, phoneNumber, email, localCached } = req.body;
-    console.log(req);
-
     upload(req, res, (err) => {
         if (err) {
             console.log(err);
@@ -75,13 +70,15 @@ exports.updateContact = (req, res) => {
             if (req.file == undefined) {
                 res.send('Error: No File Selected!');
             } else {
+                    // uid is user id, _id is id of contact to be updated
+                const { uid, _id, name, phoneNumber, email, localCached } = req.body;
                 // find user in user collection
                 userModel.find({ uid }, (err, [user]) => {  // [user], since find() returns list
                     if (err) {
                         console.error(err);
                         res.status(500).send(e);
                     } else {
-                        let contact = user.contact.find(e => e._id === ObjectId(_id));
+                        let contact = user.contact.find(e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id)));
                         if (contact) {
                             const i = user.contact.indexOf(contact);
                             if (name) contact.name = name;
