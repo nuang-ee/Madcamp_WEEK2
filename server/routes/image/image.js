@@ -13,8 +13,14 @@ exports.getImage = (req, res) => {
       console.error(err);
       res.status(500).send(e);
     } else {
-      const imgUrlList = user.image.map(e => "/static/" + e.contentUrl)
-      res.json(imgUrlList)    // send image path
+      const imgList = user.image.filter(e => e.localCached)
+                        .map(e => {
+                          if (e.localCached) {
+                            e.contentUrl = "/static/" + e.contentUrl
+                            return e
+                          }
+                        })
+      res.json(imgList)    // send image path
     }
   })
 }
@@ -39,7 +45,7 @@ exports.addImage = (req, res) => {
 						const newImage = new imageModel()
             newImage.contentUrl = req.file.filename;
             //TODO : Check if this is right
-            newImage.localCached = true;
+            newImage.localCached = false;
             newImage.markModified("contentUrl")
             newImage.markModified("localCached")
             // append added image
