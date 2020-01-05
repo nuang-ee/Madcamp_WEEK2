@@ -5,14 +5,8 @@ const Schema = mongoose.Schema;
  * Create Schema
  */
 const contactSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    phoneNumber: {
-        type: String,
-        required: true
-    },
+    name: String,
+    phoneNumber: String,
     email: String,
     thumbnail: String,
     localCached: {

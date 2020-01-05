@@ -28,7 +28,16 @@ exports.addContact = (req, res) => {
                 /**
                  * Todo: user_id (facebook id)로 구별하기
                  */
-                const { userId, name, phoneNumber, email, thumbnail, localCached } = req.body;
+                const { uid, name, phoneNumber, email, localCached } = req.body;
+                // find user
+                userModel.find({ uid }, (err, [user]) => {  // [user], since find() returns list
+                    if (err) {
+                        console.error(err);
+                        res.status(500).send(e);
+                    } else {
+                        res.json(user.contact)  // return uid's contact
+                    }
+                });
 
                 const contact = new contactModel()
                 contact.name = name;
