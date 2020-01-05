@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
     res.send("Welcome to user")
 })
 router.post('/add', user.addUser);
+router.post('/check', user.checkUser);
 router.post('/delete', user.deleteUser);    // To be implemented
 
 module.exports = router;
