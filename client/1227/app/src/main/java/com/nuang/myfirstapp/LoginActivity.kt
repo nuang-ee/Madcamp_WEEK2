@@ -5,14 +5,19 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.*
 import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
+import java.net.URI
+import java.net.URL
 import java.security.MessageDigest
 
 
@@ -37,6 +42,26 @@ class LoginActivity : AppCompatActivity() {
                         Log.d("FBLOGIN>>", `object`.toString())
                         if (`object`.has("id")) {
                             data.putExtra("userdata", `object`.toString())
+                            if (`object`.has("picture")) {
+                                try {
+                                    Thread {
+                                        run {
+                                            val profilePicUrl = URL(
+                                                `object`.getJSONObject("picture")
+                                                    .getJSONObject("data").getString("url")
+                                            )
+                                            val profilePic =
+                                                BitmapFactory.decodeStream(profilePicUrl.openConnection().getInputStream())
+                                            val userImage =
+                                                findViewById<ImageView>(R.id.fb_profile_image)
+                                            userImage.setImageBitmap(profilePic)
+                                        }
+                                    }.start()
+                                }
+                                catch (e: Exception) {
+                                    Log.d("Exception>>", e.toString())
+                                }
+                            }
                             setResult(Activity.RESULT_OK, data)
                             finish()
                         }
@@ -46,14 +71,15 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
                 val parameters = Bundle()
-                parameters.putString("fields", "id,name")
+                parameters.putString("fields", "id,name,picture.type(large)")
                 request.parameters = parameters
                 request.executeAsync()
             }
 
             override fun onCancel() { // App code
                 Log.d("logged in>>", "canceled")
-
+                setResult(Activity.RESULT_OK, data)
+                finish()
             }
 
             override fun onError(exception: FacebookException) { // App code

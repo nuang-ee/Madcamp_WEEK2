@@ -6,10 +6,16 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.facebook.AccessToken
+import com.facebook.login.LoginManager
+import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -20,7 +26,32 @@ class MainActivity : AppCompatActivity() {
     private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET)
 
     fun startApp() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
+        setSupportActionBar(toolbar)
+
+        val drawer = findViewById<DrawerLayout>(R.id.mLayout)
+        val toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer.addDrawerListener(toggle)
+        toggle.syncState()
+        val navigationView = findViewById<NavigationView>(R.id.navigationView)
+        navigationView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.logout_button -> {
+                    if (drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START)
+                    }
+                    LoginManager.getInstance().logOut()
+                    true
+                }
+                else -> false
+            }
+        }
+
         val fragmentAdapter = MyPagerAdapter(supportFragmentManager)
+        val firstFragment = FirstFragment()
+        val secondFragment = SecondFragment()
+
+        fragmentAdapter.addFragment()
         viewpager_main.adapter = fragmentAdapter
         tabs_main.setupWithViewPager(viewpager_main)
     }
@@ -83,12 +114,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         checkLogin()
         checkRunTimePermission()
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 val returnedResult = data?.getStringExtra("userdata")
+                if (returnedResult == null) {
+                    finish()
+                }
                 Log.d("LoginData>>", returnedResult)
             }
         }

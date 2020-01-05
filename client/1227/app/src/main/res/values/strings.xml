@@ -15,4 +15,6 @@
     <string name="api_ref">API by AirKorea</string>
     <string name="facebook_app_id">2585656461680397</string>
     <string name="fb_login_protocol_scheme">fb2585656461680397</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
 </resources>

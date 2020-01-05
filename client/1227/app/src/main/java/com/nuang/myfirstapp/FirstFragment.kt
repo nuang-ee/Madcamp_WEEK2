@@ -25,6 +25,7 @@ class FirstFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
     private var customAdapter: CustomAdapter? = null
     private var contactModelArrayList: ArrayList<ContactModel>? = null
+    val uid: String = ""
 
     inner class fetchContacts: AsyncTask<Void, Void, ArrayList<ContactModel>>() {
         override fun doInBackground(vararg p0: Void): ArrayList<ContactModel>? {
