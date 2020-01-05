@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 const imageSchema = new mongoose.Schema(
   { 
-    contentUrl: {
-      type: String,
-      required: true
-    },
+    contentUrl: String,
     localCached: {
       type: Boolean,
       default: false

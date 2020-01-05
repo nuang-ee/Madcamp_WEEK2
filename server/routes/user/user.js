@@ -4,25 +4,18 @@ const imageModel = require('../../models/image');
 
 // after login...
 exports.addUser = (req, res) => {
-    const { userId } = req.body;        // maybe facebook id
+    const { uid } = req.body;        // maybe facebook id
     const contact = new contactModel(); // contact data for user
     const image = new imageModel();     // image(gallery) data for user
-/*
 
-    required field 어떻게 할지 논의하기
-
-    // init 'required' attributes
-    contact.name = ""
-    contact.phoneNumber = ""
-    image.contentUrl = ""
-*/
     const user = new userModel();   // user to be added
-    user.facebook_id = userId;
+    user.uid = uid;
     user.contact = contact;
     user.image = image;
-    user.markModified('facebook_id');
+    user.markModified('uid');
     user.markModified('contact');
     user.markModified('image');
+    console.log(`user ${uid} in`)
 
     user.save((err) => {
         if (err) {
