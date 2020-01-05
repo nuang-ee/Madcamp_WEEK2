@@ -80,20 +80,16 @@ exports.updateContact = (req, res) => {
                         console.error(err);
                         res.status(500).send(e);
                     } else {
-                        contactModel.findById(_id, (err, contact) => {
-                            if (err) {
-                                res.statue(500).json({ error: 'database failure' })
-                            }
-                            if (!contact) {
-                                res.status(404).json({ error: 'contact not found' })
-                            }
-                            if (name) contact.name = name
-                            if (phoneNumber) contact.phoneNumber = phoneNumber
-                            if (email) contact.email = email
+                        let contact = user.contact.find(e => e._id === _id);
+                        if (contact) {
+                            const i = user.contact.indexOf(contact);
+                            if (name) contact.name = name;
+                            if (phoneNumber) contact.phoneNumber = phoneNumber;
+                            if (email) contact.email = email;
                             if (req.file.filename) contact.thumbnail = req.file.filename;
-                            if (localCached) contact.localCached = localCached
+                            if (localCached) contact.localCached = localCached;
 
-                            user.contact.push(contact);
+                            user.contact[i] = contact;
                             user.save((err) => {
                                 if (err) {
                                     console.error(err);
@@ -102,7 +98,7 @@ exports.updateContact = (req, res) => {
                                     res.json({ result: 1 });
                                 }
                             })
-                        })
+                        }
                     }
                 });
             }
@@ -111,7 +107,18 @@ exports.updateContact = (req, res) => {
 }
 
 exports.deleteContact = (req, res) => {
-    const { _id } = req.params
+    const { uid, _id } = req.params
+
+    // find user in user collection
+    userModel.find({ uid }, (err, [user]) => {  // [user], since find() returns list
+        if (err) {
+            console.error(err);
+            res.status(500).send(e);
+        } else {
+            res.json(user.contact)  // return uid's contact
+        }
+    });
+
     contactModel.remove({ _id: _id }, (err, output) => {
         if (err) {
             return res.statue(500).json({ error: 'database failure' });
