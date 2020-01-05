@@ -1,4 +1,4 @@
-package com.example.myfirstapp
+package com.nuang.myfirstapp
 
 import android.content.Intent
 import android.net.Uri
@@ -11,10 +11,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myfirstapp.adapter.GalleryImageAdapter
-import com.example.myfirstapp.adapter.GalleryImageClickListener
-import com.example.myfirstapp.adapter.Image
-import com.example.myfirstapp.helper.GalleryFullscreenActivity
+import com.nuang.myfirstapp.adapter.GalleryImageAdapter
+import com.nuang.myfirstapp.adapter.GalleryImageClickListener
+import com.nuang.myfirstapp.adapter.Image
+import com.nuang.myfirstapp.helper.GalleryFullscreenActivity
 import kotlinx.android.synthetic.main.fragment_second.*
 import java.io.Serializable
 

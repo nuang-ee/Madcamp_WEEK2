@@ -1,4 +1,4 @@
-package com.example.myfirstapp.helper
+package com.nuang.myfirstapp.helper
 
 import android.widget.RelativeLayout
 import android.os.Build

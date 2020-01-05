@@ -1,11 +1,11 @@
-package com.example.myfirstapp
+package com.nuang.myfirstapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-class ys_egg : AppCompatActivity(){
+class hihi : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.ys_egg)
+        setContentView(R.layout.happy_new_year)
     }
 }

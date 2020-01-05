@@ -1,4 +1,4 @@
-package com.example.myfirstapp.helper
+package com.nuang.myfirstapp.helper
 
 import androidx.viewpager.widget.ViewPager
 import android.view.View

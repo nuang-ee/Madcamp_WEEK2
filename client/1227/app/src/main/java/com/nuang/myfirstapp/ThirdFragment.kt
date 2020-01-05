@@ -1,4 +1,4 @@
-package com.example.myfirstapp
+package com.nuang.myfirstapp
 
 
 import android.annotation.SuppressLint
@@ -18,7 +18,7 @@ import android.util.Log
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.myfirstapp.helper.GpsTracker
+import com.nuang.myfirstapp.helper.GpsTracker
 import org.json.JSONObject
 import java.io.IOException
 import java.net.URL

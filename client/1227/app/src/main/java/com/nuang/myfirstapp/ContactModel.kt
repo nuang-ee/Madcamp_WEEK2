@@ -1,4 +1,4 @@
-package com.example.myfirstapp
+package com.nuang.myfirstapp
 
 import android.net.Uri
 

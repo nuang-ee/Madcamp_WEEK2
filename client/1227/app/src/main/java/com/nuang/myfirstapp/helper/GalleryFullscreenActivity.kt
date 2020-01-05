@@ -1,4 +1,4 @@
-package com.example.myfirstapp.helper
+package com.nuang.myfirstapp.helper
 
 import android.app.Activity
 import android.content.Context
@@ -11,8 +11,8 @@ import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.myfirstapp.R
-import com.example.myfirstapp.adapter.Image
+import com.nuang.myfirstapp.R
+import com.nuang.myfirstapp.adapter.Image
 import com.r0adkll.slidr.Slidr
 import com.r0adkll.slidr.model.SlidrConfig
 import com.r0adkll.slidr.model.SlidrInterface

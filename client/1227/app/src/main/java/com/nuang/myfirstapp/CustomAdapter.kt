@@ -1,4 +1,4 @@
-package com.example.myfirstapp
+package com.nuang.myfirstapp
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myfirstapp.CustomAdapter.ViewHolder
+import com.nuang.myfirstapp.CustomAdapter.ViewHolder
 
 
 class CustomAdapter(private val context: Context, private val contactModelArrayList: ArrayList<ContactModel>): RecyclerView.Adapter<ViewHolder>() {

@@ -1,4 +1,4 @@
-package com.example.myfirstapp.adapter
+package com.nuang.myfirstapp.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.myfirstapp.R
-import com.example.myfirstapp.helper.GlideApp
+import com.nuang.myfirstapp.R
+import com.nuang.myfirstapp.helper.GlideApp
 import kotlinx.android.synthetic.main.img_item.view.*
 
 class GalleryImageAdapter(private val itemList: List<Image>) : RecyclerView.Adapter<GalleryImageAdapter.ViewHolder>() {

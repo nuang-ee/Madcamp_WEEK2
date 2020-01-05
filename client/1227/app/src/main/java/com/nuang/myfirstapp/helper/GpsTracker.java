@@ -1,4 +1,4 @@
-package com.example.myfirstapp.helper;
+package com.nuang.myfirstapp.helper;
 
 import android.Manifest;
 import android.app.Service;

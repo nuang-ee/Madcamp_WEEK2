@@ -1,4 +1,4 @@
-package com.example.myfirstapp
+package com.nuang.myfirstapp
 
 import org.junit.Test
 
