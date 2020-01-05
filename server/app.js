@@ -17,18 +17,11 @@ const port = process.env.PORT || 4001;
 
 const router = require('./routes/index');
 app.use('/', router);
+app.use('/static', express.static('public/uploads'))
 
 /**
  * run server
  */
-
-/*
-app.get('/', (req, res) => {
-    res.send("Successfully accessed to server!")
-})
-*/
-
-
 const server = app.listen(port, () => {
     console.log("Express server has started on port " + port)
 })

@@ -1,12 +1,12 @@
 const express = require ('express');
 const contact = require ('./contact/index');
-const gallery = require ('./gallery/index');
+const image = require ('./image/index');
 const user = require ('./user/index');
 
 const mainRouter = express.Router()
 
 mainRouter.use('/contact', contact)
-mainRouter.use('/gallery', gallery)
+mainRouter.use('/image', image)
 mainRouter.use('/user', user)
 
 mainRouter.get('/', (req, res) => {
