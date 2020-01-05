@@ -6,7 +6,7 @@ const imageModel = require('../../models/image');
 exports.addUser = (req, res) => {
     const { uid } = req.body;        // maybe facebook id
     const contact = new contactModel(); // contact data for user
-    const image = new imageModel();     // image(gallery) data for user
+    const image = new imageModel();     // image data for user
 
     const user = new userModel();   // user to be added
     user.uid = uid;
