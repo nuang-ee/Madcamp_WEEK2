@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 /**
  * set port number (default === 4001)
  */
-const port = process.env.PORT || 4002;
+const port = process.env.PORT || 4001;
 
 const router = require('./routes/index');
 app.use('/', router);

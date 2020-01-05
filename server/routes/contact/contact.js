@@ -4,24 +4,20 @@ const upload = require('../../lib/imageProcessor').upload;
 
 
 exports.getContact = (req, res) => {
-    const { userId } = req.body;
+    const { uid } = req.body;
 
-    try {
-        const user = userModel.findById(userId, (err, results) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-        });
-        res.json(user.contact);
-    } catch (e) {
-        console.log(e);
-        res.status(500).send(e);
-    }
+    // find user in user collection
+    userModel.find({ uid }, (err, [user]) => {  // [user], since find() returns list
+        if (err) {
+            console.error(err);
+            res.status(500).send(e);
+        } else {
+            res.json(user.contact)  // return uid's contact
+        }
+    });
 };
 // add contact to user's data
 exports.addContact = (req, res) => {
-
     upload(req, res, (err) => {
         if (err) {
             console.log(err);
