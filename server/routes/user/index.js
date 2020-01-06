@@ -8,6 +8,6 @@ router.get('/', (req, res) => {
 })
 router.post('/add', user.addUser);
 router.post('/check', user.checkUser);
-router.delete('/delete', user.deleteUser);    // To be implemented
+router.delete('/delete', user.deleteUser); // To be implemented
 
 module.exports = router;
