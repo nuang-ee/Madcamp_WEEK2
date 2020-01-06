@@ -1,17 +1,23 @@
 const userModel = require('../../models/user');
 const contactModel = require('../../models/contact');
 const imageModel = require('../../models/image');
+const claimerModel = require('../../models/claimer');
+const claimeeModel = require('../../models/claimee');
 
 // after login...
 exports.addUser = (req, res) => {
     const { uid } = req.body;        // maybe facebook id
     const contact = new contactModel(); // contact data for user
     const image = new imageModel();     // image data for user
+    const claimee = new claimeeModel(); // claimee data for user
+    const claimer = new claimerModel(); // claimer data for user
 
     const user = new userModel();   // user to be added
     user.uid = uid;
     user.contact = contact;
     user.image = image;
+    user.claimee = claimee
+    user.claimer = claimer
     user.markModified('uid');
     user.markModified('contact');
     user.markModified('image');
