@@ -6,21 +6,25 @@ const ObjectId = require('mongodb').ObjectId;
 
 
 exports.getImage = (req, res) => {
-  const { uid } = req.body
+  const {
+    uid
+  } = req.body
 
-  userModel.find({ uid }, (err, [user]) => {
+  userModel.find({
+    uid
+  }, (err, [user]) => {
     if (err) {
       console.error(err);
-      res.status(500).send(e);
+      res.status(500).send(err);
     } else {
       const imgList = user.image.filter(e => e.localCached)
-                        .map(e => {
-                          if (e.localCached) {
-                            e.contentUrl = "/static/" + e.contentUrl
-                            return e
-                          }
-                        })
-      res.json(imgList)    // send image path
+        .map(e => {
+          if (e.localCached) {
+            e.contentUrl = "/static/" + e.contentUrl
+            return e
+          }
+        })
+      res.json(imgList) // send image path
     }
   })
 }
@@ -30,32 +34,43 @@ exports.getImage = (req, res) => {
  */
 exports.addImage = (req, res) => {
   upload(req, res, (err) => {
-    if(err){
+    if (err) {
       console.log(err);
     } else {
-      if(req.file == undefined){
+      if (req.file == undefined) {
         res.send('Error: No File Selected!');
       } else {
-        const { uid } = req.body;
-        userModel.find({ uid }, (err, [user]) => {
+        const {
+          uid
+        } = req.body;
+        userModel.find({
+          uid
+        }, (err, [user]) => {
           if (err) {
             console.error(err);
             res.status(500).send(e)
           } else {
-						const newImage = new imageModel()
-            newImage.contentUrl = req.file.filename;
+            const newImage = new imageModel()
+            if (req.file) {
+              newImage.contentUrl = req.file.filename;
+            }
             //TODO : Check if this is right
             newImage.localCached = false;
             newImage.markModified("contentUrl")
             newImage.markModified("localCached")
             // append added image
             user.image.push(newImage);
-            user.save(function(err) { 
+            user.save(function (err) {
               if (err) {
-                res.json({ result: 0 })
+                res.json({
+                  result: 0
+                })
               } else {
-								res.json({ _id: newImage._id, result: 1 });
-							}
+                res.json({
+                  _id: newImage._id,
+                  result: 1
+                });
+              }
             });
           }
         })
@@ -65,9 +80,14 @@ exports.addImage = (req, res) => {
 };
 
 exports.deleteImage = (req, res) => {
-  const { uid, _id } = req.body;
+  const {
+    uid,
+    _id
+  } = req.body;
 
-  userModel.find({ uid }, (err, [user]) => {
+  userModel.find({
+    uid
+  }, (err, [user]) => {
     if (err) {
       console.error(err);
       res.status(500).send(e);
@@ -77,12 +97,15 @@ exports.deleteImage = (req, res) => {
       user.save((err) => {
         if (err) {
           console.error(err)
-          res.json({ result: 0 })
+          res.json({
+            result: 0
+          })
         } else {
-          res.json({ result: 1 })
+          res.json({
+            result: 1
+          })
         }
       })
     }
   })
 }
-

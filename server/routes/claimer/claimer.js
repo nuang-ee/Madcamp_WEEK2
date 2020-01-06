@@ -111,10 +111,10 @@ exports.receiveAmount = (req, res) => {
   }, (err, [user]) => {
     if (err) {
       console.error(err);
-      res.status(500).send(e);
+      res.status(500).send(err);
     } else {
       user.claimer.map(e => {
-        if (e.date === date) {
+        if (e.date === date && e.sent) {
           e.received = true
         } else {
           res.json({

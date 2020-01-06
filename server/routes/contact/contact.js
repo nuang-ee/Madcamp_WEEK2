@@ -16,9 +16,14 @@ exports.getContact = (req, res) => {
       // [user], since find() returns list
       if (err) {
         console.error(err);
-        res.status(500).send(e);
+        res.status(500).send(err);
       } else {
-        res.json(user.contact.filter(e => e.localCached === true)); // return uid's contact ('localCached === true' only)
+        if (user) {
+          res.json(user.contact.filter(e => e.localCached === true).sort((a, b) => (a.name < b.name) ? 1 : ((b.name < a.name) ? -1 : 0))); // return uid's contact ('localCached === true' only)
+        } else {
+          console.error(err);
+          res.status(500).send(err);
+        }
       }
     }
   );
@@ -44,37 +49,42 @@ exports.addContact = (req, res) => {
           // [user], since find() returns list
           if (err) {
             console.error(err);
-            res.status(500).send(e);
+            res.status(500).send(err);
           } else {
-            // new contact
-            const contact = new contactModel();
-            contact.name = name || "-";
-            contact.phoneNumber = phoneNumber || "-";
-            contact.email = email || "-";
-            if (req.file) {
-              contact.thumbnail = req.file.filename || ""; // image
-            }
-            contact.localCached = localCached || "false";
-            contact.markModified("name");
-            contact.markModified("phoneNumber");
-            contact.markModified("email");
-            contact.markModified("thumbnail");
-            contact.markModified("localCached");
-            // append added contact
-            user.contact.push(contact);
-            user.save(err => {
-              if (err) {
-                console.error(err);
-                res.json({
-                  result: 0
-                });
-              } else {
-                res.json({
-                  _id: contact._id,
-                  result: 1
-                });
+            if (user) {
+              // new contact
+              const contact = new contactModel();
+              contact.name = name || "-";
+              contact.phoneNumber = phoneNumber || "-";
+              contact.email = email || "-";
+              if (req.file) {
+                contact.thumbnail = req.file.filename || ""; // image
+                contact.markModified("thumbnail");
               }
-            });
+              contact.localCached = localCached || "false";
+              contact.markModified("name");
+              contact.markModified("phoneNumber");
+              contact.markModified("email");
+              contact.markModified("localCached");
+              // append added contact
+              user.contact.push(contact);
+              user.save(err => {
+                if (err) {
+                  console.error(err);
+                  res.json({
+                    result: 0
+                  });
+                } else {
+                  res.json({
+                    _id: contact._id,
+                    result: 1
+                  });
+                }
+              });
+            } else {
+              console.error(err);
+              res.status(500).send(err);
+            }
           }
         }
       );
@@ -107,7 +117,7 @@ exports.updateContact = (req, res) => {
             // [user], since find() returns list
             if (err) {
               console.error(err);
-              res.status(500).send(e);
+              res.status(500).send(err);
             } else {
               let contact = user.contact.find(
                 e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id))
@@ -156,7 +166,7 @@ exports.deleteContact = (req, res) => {
       // [user], since find() returns list
       if (err) {
         console.error(err);
-        res.status(500).send(e);
+        res.status(500).send(err);
       } else {
         const contact = user.contact.find(
           e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id))
