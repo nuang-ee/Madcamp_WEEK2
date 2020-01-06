@@ -4,7 +4,18 @@ const ObjectId = require('mongodb').ObjectId
 
 
 exports.getClaimee = (req, res) => {
-  // received == true인 경우 안 보여줘야 함
+  const { uid } = req.body
+  userModel.find({ uid }, (err, [user]) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send(e);
+    } else {
+      res.json(user.claimee.filter(e => e.received === false))
+    }
+  });
+}
+
+exports.addClaim = (req, res) => {
   res.end()
 }
 

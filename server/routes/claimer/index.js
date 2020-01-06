@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
   res.send('Welcome to claimer page')
 })
 router.post('/get', claimer.getClaimee);
+router.post('/add', claimer.addClaim)
 router.put('/receive', claimer.receiveAmount);
 
 module.exports = router
