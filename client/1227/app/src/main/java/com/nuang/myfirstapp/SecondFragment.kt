@@ -24,6 +24,16 @@ class SecondFragment : Fragment(), GalleryImageClickListener {
     lateinit var galleryAdapter: GalleryImageAdapter
     private var recyclerView: RecyclerView? = null
 
+    fun initiateView() {
+        galleryAdapter = GalleryImageAdapter(imageList)
+        galleryAdapter.listener = this
+
+        recyclerView = view?.findViewById(R.id.recyclerView) as RecyclerView
+        recyclerView!!.layoutManager = GridLayoutManager(context, SPAN_COUNT)
+        recyclerView!!.adapter = galleryAdapter
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         SecondSwipeRefreshLayout.setOnRefreshListener {
             readFild()
@@ -36,15 +46,7 @@ class SecondFragment : Fragment(), GalleryImageClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_second, container, false)
-
-        galleryAdapter = GalleryImageAdapter(imageList)
-        galleryAdapter.listener = this
-
-        recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
-        recyclerView!!.layoutManager = GridLayoutManager(context, SPAN_COUNT)
-        recyclerView!!.adapter = galleryAdapter
-
-        Log.d("read", "read")
+        initiateView()
         readFild()
 
         return view

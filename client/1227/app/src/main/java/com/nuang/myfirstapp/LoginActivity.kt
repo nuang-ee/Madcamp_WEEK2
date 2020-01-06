@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
@@ -37,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
             override fun onSuccess(loginResult: LoginResult?) { // App code
                 Log.d("logged in>>", "asd")
-                val request = GraphRequest.newMeRequest(loginResult?.accessToken) {`object`, response ->
+                val request = GraphRequest.newMeRequest(loginResult?.accessToken) { `object`, _ ->
                     try {
                         Log.d("FBLOGIN>>", `object`.toString())
                         if (`object`.has("id")) {

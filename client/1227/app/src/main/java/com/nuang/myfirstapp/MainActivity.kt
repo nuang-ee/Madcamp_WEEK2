@@ -2,12 +2,16 @@ package com.nuang.myfirstapp
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -15,17 +19,25 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.facebook.AccessToken
 import com.facebook.Profile
 import com.facebook.login.LoginManager
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.nav_header.*
 import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.net.HttpURLConnection
 import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
+    val serverUrl = "http://34.84.158.57:4001"
     val PERMISSIONS_REQUEST_CODE = 100
     val LOGIN_REQUEST_CODE = 300
     private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET)
@@ -48,6 +60,14 @@ class MainActivity : AppCompatActivity() {
                         drawer.closeDrawer(GravityCompat.START)
                     }
                     LoginManager.getInstance().logOut()
+
+                    //Set App as First Launched
+                    val preferences: SharedPreferences = getSharedPreferences("com.example.myfirstapp",
+                        Context.MODE_PRIVATE
+                    )
+                    preferences.edit().putBoolean("ifFirstRun", false).commit()
+
+                    checkLogin()
                     true
                 }
                 else -> false
@@ -113,6 +133,17 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             uid = Profile.getCurrentProfile().id
+            checkUser().execute()
+            val imageUri = Profile.getCurrentProfile().getProfilePictureUri(128, 128)
+            val navigationView = findViewById<NavigationView>(R.id.navigationView)
+            val headerView = navigationView.inflateHeaderView(R.layout.nav_header)
+            val imageView = headerView.findViewById<ImageView>(R.id.fb_profile_image)
+            val textView = headerView.findViewById<TextView>(R.id.fb_name)
+            textView.text = Profile.getCurrentProfile().name
+            Glide.with(this)
+                .load(imageUri)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageView)
             checkRunTimePermission()
         }
     }
@@ -122,31 +153,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         checkLogin()
     }
-/*
-    fun fetchImage() {
-        if (`object`.has("picture")) {
-            try {
-                Thread {
-                    run {
-                        val profilePicUrl = URL(
-                            `object`.getJSONObject("picture")
-                                .getJSONObject("data").getString("url")
-                        )
-                        val profilePic =
-                            BitmapFactory.decodeStream(profilePicUrl.openConnection().getInputStream())
-                        val userImage =
-                            findViewById<ImageView>(R.id.fb_profile_image)
-                        userImage.setImageBitmap(profilePic)
-                    }
-                }.start()
-            }
-            catch (e: Exception) {
-                Log.d("Exception>>", e.toString())
-            }
-        }
-    }
 
- */
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == LOGIN_REQUEST_CODE) {
@@ -202,4 +209,90 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    inner class checkUser: AsyncTask<Void, Void, String?>() {
+        override fun doInBackground(vararg p0: Void?): String? {
+            var result = ""
+            try {
+                val url = URL("$serverUrl/user/check")
+                val urlConnection = url.openConnection() as HttpURLConnection
+                urlConnection.requestMethod = "POST"
+
+                val wr = OutputStreamWriter(urlConnection.outputStream)
+                wr.write("uid=$uid")
+                wr.flush()
+
+                BufferedReader(InputStreamReader(urlConnection.inputStream)).use {
+                    val response = StringBuffer()
+                    var inputLine = it.readLine()
+                    while (inputLine != null) {
+                        response.append(inputLine)
+                        inputLine = it.readLine()
+                    }
+                    it.close()
+                    result = response.toString()
+                }
+            } catch (e: Exception) {
+                Log.d("ExceptionFetchContacts", e.toString())
+            }
+            return result
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            try {
+                val jsonObject = JSONObject(result)
+                if(jsonObject.getInt("result") == 0) {
+                    //Add user
+                    addUser().execute()
+                }
+            } catch (e: Exception) {
+                Log.d("checkUser>>", e.toString())
+            }
+        }
+    }
+
+    inner class addUser: AsyncTask<Void, Void, String?>() {
+        override fun doInBackground(vararg p0: Void?): String? {
+            var result = ""
+            try {
+                val url = URL("$serverUrl/user/add")
+                val urlConnection = url.openConnection() as HttpURLConnection
+                urlConnection.requestMethod = "POST"
+
+                val wr = OutputStreamWriter(urlConnection.outputStream)
+                wr.write("uid=$uid")
+                wr.flush()
+
+                BufferedReader(InputStreamReader(urlConnection.inputStream)).use {
+                    val response = StringBuffer()
+                    var inputLine = it.readLine()
+                    while (inputLine != null) {
+                        response.append(inputLine)
+                        inputLine = it.readLine()
+                    }
+                    it.close()
+                    result = response.toString()
+                }
+            } catch (e: Exception) {
+                Log.d("ExceptionFetchContacts", e.toString())
+            }
+            return result
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            try {
+                val jsonObject = JSONObject(result)
+                if(jsonObject.getInt("result") == 1) {
+                    //success
+                    Log.d("addUser>>", "succeed")
+                }
+                else Log.d("addUser>>", "failed")
+            } catch (e: Exception) {
+                Log.d("addUser>>", e.toString())
+            }
+        }
+    }
+
 }
