@@ -4,8 +4,10 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,16 +16,21 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.facebook.AccessToken
+import com.facebook.Profile
 import com.facebook.login.LoginManager
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
     val PERMISSIONS_REQUEST_CODE = 100
     val LOGIN_REQUEST_CODE = 300
     private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET)
+    var uid = ""
+    lateinit var userInfo: JSONObject
 
     fun startApp() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
@@ -47,11 +54,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val fragmentAdapter = MyPagerAdapter(supportFragmentManager)
-        val firstFragment = FirstFragment()
-        val secondFragment = SecondFragment()
-
-        fragmentAdapter.addFragment()
+        Log.d("fuckfuck>>", "fuck")
+        val fragmentAdapter = MyPagerAdapter(supportFragmentManager, uid)
         viewpager_main.adapter = fragmentAdapter
         tabs_main.setupWithViewPager(viewpager_main)
     }
@@ -107,25 +111,56 @@ class MainActivity : AppCompatActivity() {
             }
             startActivityForResult(intent, LOGIN_REQUEST_CODE)
         }
+        else {
+            uid = Profile.getCurrentProfile().id
+            checkRunTimePermission()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         checkLogin()
-        checkRunTimePermission()
-
-
     }
+/*
+    fun fetchImage() {
+        if (`object`.has("picture")) {
+            try {
+                Thread {
+                    run {
+                        val profilePicUrl = URL(
+                            `object`.getJSONObject("picture")
+                                .getJSONObject("data").getString("url")
+                        )
+                        val profilePic =
+                            BitmapFactory.decodeStream(profilePicUrl.openConnection().getInputStream())
+                        val userImage =
+                            findViewById<ImageView>(R.id.fb_profile_image)
+                        userImage.setImageBitmap(profilePic)
+                    }
+                }.start()
+            }
+            catch (e: Exception) {
+                Log.d("Exception>>", e.toString())
+            }
+        }
+    }
+
+ */
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 val returnedResult = data?.getStringExtra("userdata")
                 if (returnedResult == null) {
+                    Log.d("returnedResult>>", "is null")
                     finish()
                 }
+                userInfo = JSONObject(returnedResult)
+                uid = userInfo.getString("id")
+                Log.d("uid>>", uid)
                 Log.d("LoginData>>", returnedResult)
+                checkRunTimePermission()
             }
         }
     }

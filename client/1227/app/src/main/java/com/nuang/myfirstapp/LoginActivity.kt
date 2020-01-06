@@ -42,26 +42,6 @@ class LoginActivity : AppCompatActivity() {
                         Log.d("FBLOGIN>>", `object`.toString())
                         if (`object`.has("id")) {
                             data.putExtra("userdata", `object`.toString())
-                            if (`object`.has("picture")) {
-                                try {
-                                    Thread {
-                                        run {
-                                            val profilePicUrl = URL(
-                                                `object`.getJSONObject("picture")
-                                                    .getJSONObject("data").getString("url")
-                                            )
-                                            val profilePic =
-                                                BitmapFactory.decodeStream(profilePicUrl.openConnection().getInputStream())
-                                            val userImage =
-                                                findViewById<ImageView>(R.id.fb_profile_image)
-                                            userImage.setImageBitmap(profilePic)
-                                        }
-                                    }.start()
-                                }
-                                catch (e: Exception) {
-                                    Log.d("Exception>>", e.toString())
-                                }
-                            }
                             setResult(Activity.RESULT_OK, data)
                             finish()
                         }
