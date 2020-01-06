@@ -23,41 +23,37 @@ exports.addContact = (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            if (req.file == undefined) {
-                res.send('Error: No File Selected!');
-            } else {
-                const { uid, name, phoneNumber, email, localCached } = req.body;
-                // find user
-                userModel.find({ uid }, (err, [user]) => {  // [user], since find() returns list
-                    if (err) {
-                        console.error(err);
-                        res.status(500).send(e);
-                    } else {
-                        // new contact
-                        const contact = new contactModel()
-                        contact.name = name;
-                        contact.phoneNumber = phoneNumber;
-                        contact.email = email;
-                        contact.thumbnail = req.file.filename;  // image
-                        contact.localCached = localCached;
-                        contact.markModified('name')
-                        contact.markModified('phoneNumber')
-                        contact.markModified('email')
-                        contact.markModified('thumbnail')
-                        contact.markModified('localCached')
-                        // append added contact
-                        user.contact.push(contact);
-                        user.save((err) => {
-                            if (err) {
-                                console.error(err);
-                                res.json({ result: 0 });
-                            } else {
-                                res.json({ _id: contact._id, result: 1 });
-                            }
-                        })
-                    }
-                });
-            }
+            const { uid, name, phoneNumber, email, localCached } = req.body;
+            // find user
+            userModel.find({ uid }, (err, [user]) => {  // [user], since find() returns list
+                if (err) {
+                    console.error(err);
+                    res.status(500).send(e);
+                } else {
+                    // new contact
+                    const contact = new contactModel()
+                    contact.name = name || "-";
+                    contact.phoneNumber = phoneNumber || "-";
+                    contact.email = email || "-";
+                    contact.thumbnail = req.file.filename || "";  // image
+                    contact.localCached = localCached || "false";
+                    contact.markModified('name')
+                    contact.markModified('phoneNumber')
+                    contact.markModified('email')
+                    contact.markModified('thumbnail')
+                    contact.markModified('localCached')
+                    // append added contact
+                    user.contact.push(contact);
+                    user.save((err) => {
+                        if (err) {
+                            console.error(err);
+                            res.json({ result: 0 });
+                        } else {
+                            res.json({ _id: contact._id, result: 1 });
+                        }
+                    })
+                }
+            });
         }
     })
 };
@@ -81,11 +77,11 @@ exports.updateContact = (req, res) => {
                         let contact = user.contact.find(e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id)));
                         if (contact) {
                             const i = user.contact.indexOf(contact);
-                            if (name) contact.name = name;
-                            if (phoneNumber) contact.phoneNumber = phoneNumber;
-                            if (email) contact.email = email;
-                            if (req.file.filename) contact.thumbnail = req.file.filename;
-                            if (localCached) contact.localCached = localCached;
+                            contact.name = name || "-";
+                            contact.phoneNumber = phoneNumber || "-";
+                            contact.email = email || "-";
+                            contact.thumbnail = req.file.filename || "";  // image
+                            contact.localCached = localCached || "false";
 
                             user.contact[i] = contact;
                             user.save((err) => {

@@ -1,5 +1,5 @@
 const express = require('express');
-const image = require('./image.js');
+const image = require('./image');
 
 const router = express.Router()
 
