@@ -1,9 +1,9 @@
-const express = require ('express');
-const contact = require ('./contact/index');
-const image = require ('./image/index');
-const user = require ('./user/index');
-const claimer = require ('./claimer/index');
-const claimee = require ('./claimee/index');
+const express = require('express');
+const contact = require('./contact/index');
+const image = require('./image/index');
+const user = require('./user/index');
+const claimer = require('./claimer/index');
+const claimee = require('./claimee/index');
 
 const mainRouter = express.Router()
 
