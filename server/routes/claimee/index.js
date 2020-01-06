@@ -8,3 +8,5 @@ router.get('/', (req, res) => {
 })
 router.post('/get', claimee.getClaimer)
 router.put('/send', claimee.sendAmount)
+
+module.exports = router
