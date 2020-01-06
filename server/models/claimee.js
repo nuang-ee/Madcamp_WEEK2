@@ -4,7 +4,8 @@ const claimeeSchema = new mongoose.Schema({
   amount: Number,   // 보낼 금액
   account: String,  // 계좌 정보
   name: String,     // 거래 이름
-  date: String      // 거래 생성 날짜
+  date: String,     // 거래 생성 날짜
+  sent: Boolean     // 돈을 보냈는지 여부
 })
 
 module.exports = mongoose.model('claimee', claimeeSchema)
