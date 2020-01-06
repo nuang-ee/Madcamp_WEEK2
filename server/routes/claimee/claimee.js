@@ -61,5 +61,17 @@ exports.addClaim = (req, res) => {
 }
 
 exports.sendAmount = (req, res) => {
-  res.end();
+  const {
+    uid
+  } = req.body;
+  userModel.find({
+    uid
+  }, (err, [user]) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send(e);
+    } else {
+
+    }
+  })
 }

@@ -69,6 +69,7 @@ exports.receiveAmount = (req, res) => {
     uid,
     _id
   } = req.body
+  let sender, date;
   userModel.find({
     uid
   }, (err, [user]) => {
@@ -80,7 +81,9 @@ exports.receiveAmount = (req, res) => {
         e => {
           if (JSON.stringify(e._id) === JSON.stringify(ObjectId(_id))) {
             if (e.sent) {
-              e.received = true
+              e.received = true;
+              sender = e.claimee
+              date = e.date
             } else {
               res.json({
                 result: 0
@@ -103,4 +106,34 @@ exports.receiveAmount = (req, res) => {
       })
     }
   });
+  userModel.find({
+    sender
+  }, (err, [user]) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send(e);
+    } else {
+      user.claimer.map(e => {
+        if (e.date === date) {
+          e.received = true
+        } else {
+          res.json({
+            result: 0
+          })
+        }
+      })
+      user.save(err => {
+        if (err) {
+          console.error(err);
+          res.json({
+            result: 0
+          });
+        } else {
+          res.json({
+            result: 1
+          });
+        }
+      })
+    }
+  })
 }

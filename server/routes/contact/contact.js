@@ -51,7 +51,9 @@ exports.addContact = (req, res) => {
             contact.name = name || "-";
             contact.phoneNumber = phoneNumber || "-";
             contact.email = email || "-";
-            contact.thumbnail = req.file.filename || ""; // image
+            if (req.file) {
+              contact.thumbnail = req.file.filename || ""; // image
+            }
             contact.localCached = localCached || "false";
             contact.markModified("name");
             contact.markModified("phoneNumber");
