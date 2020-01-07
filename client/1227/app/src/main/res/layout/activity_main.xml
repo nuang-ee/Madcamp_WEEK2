@@ -16,16 +16,20 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary" />
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:background="#7D47FF">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:tabBackground="@color/white"
                 app:tabMode="fixed"
                 tools:layout_constraintBottom_toBottomOf="parent"
                 tools:layout_editor_absoluteX="0dp" />
@@ -35,10 +39,10 @@
             android:id="@+id/viewpager_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/tabs_main"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintBottom_toTopOf="@id/tabs_main">
 
         </androidx.viewpager.widget.ViewPager>
+
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

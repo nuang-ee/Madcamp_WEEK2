@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -26,8 +25,8 @@ import com.facebook.Profile
 import com.facebook.login.LoginManager
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.nuang.myfirstapp.adapter.MyPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.nav_header.*
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -78,7 +77,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         Log.d("fuckfuck>>", "fuck")
-        val fragmentAdapter = MyPagerAdapter(supportFragmentManager, uid)
+        val fragmentAdapter =
+            MyPagerAdapter(supportFragmentManager, uid)
         viewpager_main.adapter = fragmentAdapter
         tabs_main.setupWithViewPager(viewpager_main)
     }
