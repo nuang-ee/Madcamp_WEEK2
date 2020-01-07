@@ -12,10 +12,12 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     uid: { // pending encryption
         type: String,
-        required: true
+        required: true,
+        default: ""
     },
     name: {
-        type: String
+        type: String,
+        default: ""
     },
     contact: [{
         type: ContactSchema

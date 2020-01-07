@@ -1,10 +1,25 @@
 const mongoose = require('mongoose');
 const claimeeSchema = new mongoose.Schema({
-  claimee_uid: String, // 피청구인 uid
-  claimee: String, // 피청구인 이름
-  amount: Number, // 받을 금액
-  name: String, // 거래 이름
-  date: String, // 거래 생성 날짜
+  claimee_uid: {
+    type: String,
+    default: ""
+  }, // 피청구인 uid
+  claimee: {
+    type: String,
+    default: ""
+  }, // 피청구인 이름
+  amount: {
+    type: Number,
+    default: 0
+  }, // 받을 금액
+  name: {
+    type: String,
+    default: ""
+  }, // 거래 이름
+  date: {
+    type: String,
+    default: ""
+  }, // 거래 생성 날짜
   received: { // 돈을 받았는지 여부
     type: Boolean,
     default: false

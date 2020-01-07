@@ -24,18 +24,18 @@ exports.addUser = (req, res) => {
 					message: "user already here"
 				})
 			} else {
-				const contact = new contactModel(); // contact data for user
-				const image = new imageModel(); // image data for user
-				const claimee = new claimeeModel(); // claimee data for user
-				const claimer = new claimerModel(); // claimer data for user
+				// const contact = new contactModel(); // contact data for user
+				// const image = new imageModel(); // image data for user
+				// const claimee = new claimeeModel(); // claimee data for user
+				// const claimer = new claimerModel(); // claimer data for user
 
 				const user = new userModel(); // user to be added
 				user.uid = uid;
 				user.name = name;
-				user.contact = contact;
-				user.image = image;
-				user.claimee = claimee
-				user.claimer = claimer
+				user.contact = []
+				user.image = []
+				user.claimee = []
+				user.claimer = []
 				user.markModified('uid');
 				user.markModified('name');
 				user.markModified('contact');
