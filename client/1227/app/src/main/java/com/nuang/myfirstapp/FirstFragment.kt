@@ -57,7 +57,7 @@ class FirstFragment : Fragment() {
 
 
     fun initiateView() {
-        customAdapter = context?.let { CustomAdapter(it, contactModelArrayList!!) }
+        customAdapter = context?.let { CustomAdapter(it, contactModelArrayList) }
         customAdapter?.clickListener = object: CustomAdapter.ClickListener {
             override fun onLongClick(p0: View?): Boolean {
                 return true
@@ -93,7 +93,7 @@ class FirstFragment : Fragment() {
 
     private fun checkFirstRun() {
         val preferences: SharedPreferences = activity!!.getSharedPreferences("com.example.myfirstapp", MODE_PRIVATE)
-        val isFirstRun = preferences?.getBoolean("isFirstRun", true)
+        val isFirstRun = preferences.getBoolean("isFirstRun", true)
         if (isFirstRun) {
             initiateView()
             initializeContacts().execute()
