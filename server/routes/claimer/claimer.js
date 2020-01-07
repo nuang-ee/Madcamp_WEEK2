@@ -12,7 +12,9 @@ exports.getClaimer = (req, res) => {
   }, (err, [user]) => {
     if (err) {
       console.error(err);
-      res.status(500).send(e);
+      res.status(500).send({
+        message: "Something wrong"
+      });
     } else {
       if (user) {
         res.json(user.claimer.filter(e => e.received === false))

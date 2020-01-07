@@ -7,7 +7,8 @@ const claimeeModel = require('../../models/claimee');
 // after login...
 exports.addUser = (req, res) => {
 	const {
-		uid
+		uid,
+		name
 	} = req.body; // maybe facebook id
 	userModel.find({
 		uid
@@ -30,11 +31,13 @@ exports.addUser = (req, res) => {
 
 				const user = new userModel(); // user to be added
 				user.uid = uid;
+				user.name = name;
 				user.contact = contact;
 				user.image = image;
 				user.claimee = claimee
 				user.claimer = claimer
 				user.markModified('uid');
+				user.markModified('name');
 				user.markModified('contact');
 				user.markModified('image');
 				user.markModified('claimee');
