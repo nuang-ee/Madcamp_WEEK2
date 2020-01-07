@@ -19,10 +19,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.facebook.AccessToken
 import com.facebook.Profile
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.nuang.myfirstapp.adapter.GalleryImageAdapter
 import com.nuang.myfirstapp.adapter.GalleryImageClickListener
 import com.nuang.myfirstapp.adapter.Image
 import com.nuang.myfirstapp.helper.GalleryFullscreenActivity
+import kotlinx.android.synthetic.main.fragment_first.*
 import kotlinx.android.synthetic.main.fragment_second.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -30,6 +32,8 @@ import java.io.*
 import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.min
 
 private const val IMAGE_PICK_CODE = 1000
@@ -66,14 +70,68 @@ class SecondFragment : Fragment(), GalleryImageClickListener {
     //when swipe refreshed
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         SecondSwipeRefreshLayout.setOnRefreshListener {
+            imageList.clear()
             initializeGallery().execute()
             SecondSwipeRefreshLayout.isRefreshing = false
         }
     }
 
-    fun longPressed(position: Int) {
+    private var recentlyDeletedItemPosition = -1
+    private var recentlyDeletedItem: Image? = null
 
+    val SelectedItems = ArrayList<Image>()
+    val SelectedItemsPosition = ArrayList<Int>()
+    fun longPressed(position: Int) {
+        //TODO: DeleteItem
+        Log.d("LongPressed>>", position.toString())
+        val lm = recyclerView?.layoutManager
+        val view = lm?.findViewByPosition(position)
+        view?.isSelected = !view?.isSelected!!
+        if (view?.isSelected) {
+            SelectedItems.add(imageList[position])
+            SelectedItemsPosition.add(position)
+        }
+        else {
+            SelectedItems.remove(imageList[position])
+            SelectedItemsPosition.remove(position)
+        }
+        if (SelectedItems.size != 0) {
+            showDeleteSnackbar()
+        }
     }
+
+
+    fun deleteItem(position: Int) {
+        recentlyDeletedItem = imageList[position]
+        imageList[position].id?.let { deletePicture(it).execute() }
+
+        recentlyDeletedItemPosition = position
+        imageList.removeAt(position)
+        deletePicture(recentlyDeletedItem!!.id)
+        //showUndoSnackbar()
+    }
+
+    fun showDeleteSnackbar() {
+        val snackbar = Snackbar.make(
+            view!!.findViewById(R.id.secondFragmentRootView), "${SelectedItems.size} items selected",
+            Snackbar.LENGTH_LONG
+        )
+            .setAction("DELETE") {
+                val lm = recyclerView?.layoutManager
+                for (i in 0 until lm!!.itemCount) {
+                    val view = lm?.findViewByPosition(i)
+                    if (view!!.isSelected) view.isSelected = false
+                }
+                Collections.sort(SelectedItemsPosition, Collections.reverseOrder<Int>())
+                for (item in SelectedItemsPosition) {
+                    deleteItem(item)
+                }
+                SelectedItemsPosition.clear()
+                SelectedItems.clear()
+                recyclerView?.adapter?.notifyDataSetChanged()
+            }.show()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -262,6 +320,53 @@ class SecondFragment : Fragment(), GalleryImageClickListener {
             }
         }
     }
+
+
+    inner class deletePicture internal constructor(imageId: String): AsyncTask<Void, Void, String?>() {
+        val imgId = imageId
+        override fun doInBackground(vararg p0: Void): String? {
+            var result = ""
+            try {
+                val url = URL("$serverUrl/image/delete")
+                val urlConnection = url.openConnection() as HttpURLConnection
+                urlConnection.requestMethod = "DELETE"
+
+                Log.d("deletePayload>>", "uid=$uid&_id=$imgId")
+
+                val wr = OutputStreamWriter(urlConnection.outputStream)
+                wr.write("uid=$uid&_id=$imgId")
+                wr.flush()
+
+                BufferedReader(InputStreamReader(urlConnection.inputStream)).use {
+                    val response = StringBuffer()
+                    var inputLine = it.readLine()
+                    while (inputLine != null) {
+                        response.append(inputLine)
+                        inputLine = it.readLine()
+                    }
+                    it.close()
+                    result = response.toString()
+                }
+            } catch (e: Exception) {
+                Log.d("ExceptionFetchContacts", e.toString())
+            }
+            return result
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            try {
+                val jsonObject = JSONObject(result)
+                val succeed = jsonObject.getInt("result")
+                if (succeed == 1) {
+                    Log.d("DELETE>>", "succeed")
+                } else Log.d("DELETE>>", " failed")
+            } catch (e: Exception) {
+                Log.d("ExceptionDeleteImage", e.toString())
+            }
+        }
+    }
+
 
     //https://stackoverflow.com/questions/19026256/how-to-upload-multipart-form-data-and-image-to-server-in-android
     //Multipart Form-data Request

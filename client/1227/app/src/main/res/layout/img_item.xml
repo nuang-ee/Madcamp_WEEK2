@@ -5,16 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:foreground="?selectableItemBackground"
-    android:clickable="true">
+    android:clickable="true"
+    android:background="@drawable/selector"
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/ivGalleryImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
         android:background="@color/softGray"
         android:scaleType="centerCrop" />
 

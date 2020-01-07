@@ -33,13 +33,22 @@ class GalleryImageAdapter(private val itemList: List<Image>) : RecyclerView.Adap
     }
     override fun onBindViewHolder(holder: GalleryImageAdapter.ViewHolder, position: Int) {
         holder.bind()
+        Log.d("Position>>", position.toString())
+        /*
         holder.itemView.setBackgroundColor(Color.parseColor("#000000"))
         if (clickListener != null) {
             holder.itemView.setOnLongClickListener { v -> clickListener?.onLongClick(v, position)!! }
         }
-        Log.d("Position>>", position.toString())
+
         if (selectedPosition == position) holder.itemView.setBackgroundColor(Color.parseColor("#000000"))
         else holder.itemView.setBackgroundColor(Color.parseColor("#FF0266"))
+
+        holder.itemView.setOnLongClickListener(View.OnLongClickListener {
+            selectedPosition = position
+            notifyDataSetChanged()
+        })
+        */
+
     }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind() {

@@ -1,14 +1,14 @@
-package com.nuang.myfirstapp
+package com.nuang.myfirstapp.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.Text
+import com.nuang.myfirstapp.ClaimItem
+import com.nuang.myfirstapp.R
 
 
 class MoneyAdapter(val context: Context, val itemList: ArrayList<ClaimItem>): RecyclerView.Adapter<MoneyAdapter.Holder>() {

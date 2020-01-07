@@ -1,14 +1,14 @@
-package com.nuang.myfirstapp
+package com.nuang.myfirstapp.adapter
 
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.nuang.myfirstapp.CustomAdapter.ViewHolder
+import com.nuang.myfirstapp.ContactModel
+import com.nuang.myfirstapp.R
+import com.nuang.myfirstapp.adapter.CustomAdapter.ViewHolder
 
 
 class CustomAdapter(private val context: Context, private val contactModelArrayList: ArrayList<ContactModel>): RecyclerView.Adapter<ViewHolder>() {

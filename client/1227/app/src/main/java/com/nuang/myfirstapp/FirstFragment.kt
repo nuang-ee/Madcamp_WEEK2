@@ -2,10 +2,8 @@ package com.example.myfirstapp
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
-import android.database.Cursor
 import android.os.AsyncTask
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,15 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_first.*
 import android.content.Context.MODE_PRIVATE
 import android.content.DialogInterface
-import android.content.Intent
-import android.gesture.Gesture
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
-import android.view.GestureDetector
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -34,8 +26,7 @@ import com.facebook.Profile
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.nuang.myfirstapp.ContactModel
-import com.nuang.myfirstapp.CustomAdapter
-import com.nuang.myfirstapp.MainActivity
+import com.nuang.myfirstapp.adapter.CustomAdapter
 import com.nuang.myfirstapp.R
 import org.json.JSONArray
 import org.json.JSONObject
@@ -57,7 +48,12 @@ class FirstFragment : Fragment() {
 
 
     fun initiateView() {
-        customAdapter = context?.let { CustomAdapter(it, contactModelArrayList) }
+        customAdapter = context?.let {
+            CustomAdapter(
+                it,
+                contactModelArrayList
+            )
+        }
         customAdapter?.clickListener = object: CustomAdapter.ClickListener {
             override fun onLongClick(p0: View?): Boolean {
                 return true
