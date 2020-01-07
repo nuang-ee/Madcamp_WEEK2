@@ -8,107 +8,113 @@
     android:orientation="vertical">
     <!--android:background="@drawable/bg_gradient"-->
 
-
-    <LinearLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="2">
+        android:layout_height="match_parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/claimee_background"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="4">
+            android:weightSum="2">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/mainContainer"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="6dp"
                 android:layout_weight="1"
-                android:visibility="visible">
-                <!--        android:layout_marginBottom="55dp"-->
+                android:background="@drawable/claimee_background"
+                android:orientation="vertical"
+                android:weightSum="4">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/mainContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="visible">
+                    <!--        android:layout_marginBottom="55dp"-->
 
 
-                <TextView
-                    android:id="@+id/customClaimeeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/custom_tab_claimees"
-                    android:textSize="30sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:textColor="@color/white" />
+                    <TextView
+                        android:id="@+id/customClaimeeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/custom_tab_claimees"
+                        android:textSize="30sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:textColor="@color/white" />
 
-                <Button
-                    android:id="@+id/claimee_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40sp"
-                    android:layout_margin="20dp"
-                    android:background="#F46236"
-                    android:text="빚쟁이 추가"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <Button
+                        android:id="@+id/claimee_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40sp"
+                        android:layout_margin="20dp"
+                        android:background="#F46236"
+                        android:text="빚쟁이 추가"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/claimeeRecyclerView"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/claimeeRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="15dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/recyclerview_background_round"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="15dp"
-                android:layout_weight="3"
-                android:background="@drawable/recyclerview_background_round"
-                android:scrollbars="vertical" />
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/claimer_background"
+                android:orientation="vertical"
+                android:weightSum="4">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/customClaimerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/custom_tab_claimers"
+                        android:textSize="30sp"
+                        tools:textColor="@color/white" />
+                </FrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/claimerRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="15dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/recyclerview_background_round"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/claimer_background"
-            android:orientation="vertical"
-            android:weightSum="4">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/customClaimerText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/custom_tab_claimers"
-                    android:textSize="30sp"
-                    tools:textColor="@color/white" />
-            </FrameLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/claimerRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="15dp"
-                android:layout_weight="3"
-                android:background="@drawable/recyclerview_background_round"
-                android:scrollbars="vertical" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 </FrameLayout>

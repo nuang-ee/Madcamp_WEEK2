@@ -41,6 +41,7 @@ import java.net.URL
 class FirstFragment : Fragment() {
     val serverUrl = "http://34.84.158.57:4001"
     var uid: String = ""
+    var userName: String = ""
 
     private var recyclerView: RecyclerView? = null
     private var customAdapter: CustomAdapter? = null
@@ -127,6 +128,7 @@ class FirstFragment : Fragment() {
         val isLoggedIn = accessToken != null && !accessToken.isExpired
         if(isLoggedIn) {
             uid = Profile.getCurrentProfile().id
+            userName = Profile.getCurrentProfile().firstName
             checkUser().execute()
         }
     }
@@ -176,8 +178,8 @@ class FirstFragment : Fragment() {
                         if (item.has("thumbnail")) contactmodel.photoName = item.getString("thumbnail")
                         //contactmodel.photoUri = Uri.parse("$serverUrl/static/$thumbnailName")
                         contactmodel.id = item.getString("_id")
+                        contactModelArrayList.add(contactmodel)
                     }
-                    contactModelArrayList.add(contactmodel)
                     recyclerView?.adapter?.notifyDataSetChanged()
                 }
 
@@ -455,7 +457,7 @@ class FirstFragment : Fragment() {
                 urlConnection.requestMethod = "POST"
 
                 val wr = OutputStreamWriter(urlConnection.outputStream)
-                wr.write("uid=$uid")
+                wr.write("uid=$uid&name=$userName")
                 wr.flush()
 
                 BufferedReader(InputStreamReader(urlConnection.inputStream)).use {
@@ -510,52 +512,6 @@ class FirstFragment : Fragment() {
             val position = viewHolder.adapterPosition
             deleteItem(position)
         }
-
-        /*
-        override fun onChildDraw(
-            c: Canvas,
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder,
-            dX: Float,
-            dY: Float,
-            actionState: Int,
-            isCurrentlyActive: Boolean
-        ) {
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-            val itemView = viewHolder.itemView
-            val backgroundCornerOffset = 20
-
-            val iconMargin = (itemView.height - icon?.intrinsicHeight!!) / 2
-            val iconTop = itemView.top + (itemView.height - icon.intrinsicHeight) / 2
-            val iconBottom = iconTop + icon.intrinsicHeight
-
-            if (dX > 0) { // Swiping to the right
-                val iconLeft = itemView.left + iconMargin + icon.intrinsicWidth
-                val iconRight = itemView.left + iconMargin
-                icon?.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-
-                background.setBounds(
-                    itemView.left, itemView.top,
-                    itemView.left + dX as Int + backgroundCornerOffset,
-                    itemView.bottom
-                )
-            } else if (dX < 0) { // Swiping to the left
-                val iconLeft = itemView.right - iconMargin - icon.intrinsicWidth
-                val iconRight = itemView.right - iconMargin
-                icon?.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-                background.setBounds(
-                    itemView.right + dX as Int - backgroundCornerOffset,
-                    itemView.top, itemView.right, itemView.bottom
-                )
-            } else { // view is unSwiped
-                background.setBounds(0, 0, 0, 0)
-            }
-            background.draw(c)
-            icon?.draw(c)
-        }
-
-         */
-
     }
 
     fun deleteItem(position: Int) {

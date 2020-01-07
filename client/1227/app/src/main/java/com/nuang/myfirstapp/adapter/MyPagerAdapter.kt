@@ -40,7 +40,7 @@ class MyPagerAdapter(fm: FragmentManager, uid: String) : FragmentPagerAdapter(fm
         return when (position){
             0 -> "CONTACTS"
             1 -> "GALLERY"
-            else -> {return "WEATHERS"}
+            else -> {return "MONEY"}
         }
     }
 }
