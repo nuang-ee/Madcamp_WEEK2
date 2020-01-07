@@ -61,7 +61,7 @@ exports.addContact = (req, res) => {
                 contact.thumbnail = req.file.filename || ""; // image
                 contact.markModified("thumbnail");
               }
-              contact.localCached = localCached || "false";
+              contact.localCached = localCached || false;
               contact.markModified("name");
               contact.markModified("phoneNumber");
               contact.markModified("email");
@@ -97,57 +97,56 @@ exports.updateContact = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      if (req.file == undefined) {
-        res.send("Error: No File Selected!");
-      } else {
-        // uid is user id, _id is id of contact to be updated
-        const {
-          uid,
-          _id,
-          name,
-          phoneNumber,
-          email,
-          localCached
-        } = req.body;
-        // find user in user collection
-        userModel.find({
-            uid
-          },
-          (err, [user]) => {
-            // [user], since find() returns list
-            if (err) {
-              console.error(err);
-              res.status(500).send(err);
-            } else {
-              let contact = user.contact.find(
-                e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id))
-              );
-              if (contact) {
-                const i = user.contact.indexOf(contact);
-                contact.name = name || "-";
-                contact.phoneNumber = phoneNumber || "-";
-                contact.email = email || "-";
-                contact.thumbnail = req.file.filename || ""; // image
-                contact.localCached = localCached || "false";
-
-                user.contact[i] = contact;
-                user.save(err => {
-                  if (err) {
-                    console.error(err);
-                    res.json({
-                      result: 0
-                    });
-                  } else {
-                    res.json({
-                      result: 1
-                    });
-                  }
-                });
+      // uid is user id, _id is id of contact to be updated
+      const {
+        uid,
+        _id,
+        name,
+        phoneNumber,
+        email,
+        localCached
+      } = req.body;
+      // find user in user collection
+      userModel.find({
+          uid
+        },
+        (err, [user]) => {
+          // [user], since find() returns list
+          if (err) {
+            console.error(err);
+            res.status(500).send(err);
+          } else {
+            let contact = user.contact.find(
+              e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id))
+            );
+            if (contact) {
+              const i = user.contact.indexOf(contact);
+              contact.name = name || "-";
+              contact.phoneNumber = phoneNumber || "-";
+              contact.email = email || "-";
+              if (req.file) {
+                contact.thumbnail = req.file.filename; // image
+              } else {
+                contact.thumbnail = ""
               }
+              contact.localCached = localCached || "false";
+              user.contact[i] = contact;
+              user.save(err => {
+                if (err) {
+                  console.error(err);
+                  res.json({
+                    result: 0
+                  });
+                } else {
+                  res.json({
+                    result: 1
+                  });
+                }
+              });
             }
           }
-        );
-      }
+        }
+      );
     }
   });
 };

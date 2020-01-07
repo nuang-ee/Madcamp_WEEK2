@@ -17,14 +17,16 @@ exports.getImage = (req, res) => {
       console.error(err);
       res.status(500).send(err);
     } else {
-      const imgList = user.image.filter(e => e.localCached)
-        .map(e => {
-          if (e.localCached) {
-            e.contentUrl = "/static/" + e.contentUrl
-            return e
-          }
-        })
-      res.json(imgList) // send image path
+      if (user) {
+        const imgList = user.image.filter(e => e.localCached)
+          .map(e => {
+            if (e.localCached) {
+              e.contentUrl = "/static/" + e.contentUrl
+              return e
+            }
+          })
+        res.json(imgList) // send image path
+      }
     }
   })
 }
@@ -46,32 +48,40 @@ exports.addImage = (req, res) => {
         userModel.find({
           uid
         }, (err, [user]) => {
-          if (err) {
-            console.error(err);
-            res.status(500).send(e)
-          } else {
-            const newImage = new imageModel()
-            if (req.file) {
-              newImage.contentUrl = req.file.filename;
-            }
-            //TODO : Check if this is right
-            newImage.localCached = false;
-            newImage.markModified("contentUrl")
-            newImage.markModified("localCached")
-            // append added image
-            user.image.push(newImage);
-            user.save(function (err) {
-              if (err) {
-                res.json({
-                  result: 0
-                })
-              } else {
-                res.json({
-                  _id: newImage._id,
-                  result: 1
-                });
+          if (user) {
+            if (err) {
+              console.error(err);
+              res.status(500).send(e)
+            } else {
+              const newImage = new imageModel()
+              if (req.file) {
+                newImage.contentUrl = req.file.filename;
+                newImage.markModified("contentUrl")
               }
-            });
+              //TODO : Check if this is right
+              newImage.localCached = false;
+              newImage.markModified("localCached")
+              // append added image
+              user.image.push(newImage);
+              user.save((err) => {
+                if (err) {
+                  console.log(err)
+                  res.json({
+                    result: 0
+                  })
+                } else {
+                  res.json({
+                    _id: newImage._id,
+                    contentUrl: "/static" + newImage.contentUrl,
+                    result: 1
+                  });
+                }
+              });
+            }
+          } else {
+            res.json({
+              message: "user not found"
+            })
           }
         })
       }
