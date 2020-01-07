@@ -46,7 +46,7 @@ class MoneyAdapter(val context: Context, val itemList: ArrayList<ClaimItem>): Re
 
                 dialogName?.text = item.name
                 dialogAmount?.text = item.amount.toString()
-                dialogFrom?.text = item.claimId
+                dialogFrom?.text = item.claimer
                 dialogDate?.text = item.date
                 dialogAccount?.text = item.account
 
