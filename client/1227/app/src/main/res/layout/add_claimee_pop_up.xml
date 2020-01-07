@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="350sp"
+        android:layout_height="300sp"
+        android:layout_gravity="center"
+        android:backgroundTint="#FFFFFF"
+        android:background="@drawable/item_border"
+        android:orientation="vertical"
+        android:paddingLeft="20sp"
+        android:paddingRight="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/popup_claimee_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10sp"
+            android:paddingTop="30sp"
+            android:paddingBottom="40sp"
+            android:text="빚쟁이 추가"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/popup_claimee_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="id"
+            android:text=""
+            android:ems="10" />
+
+        <EditText
+            android:id="@+id/popup_claimee_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:text=""
+            android:ems="10" />
+
+        <EditText
+            android:id="@+id/popup_claimee_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Amount"
+            android:text=""
+            android:ems="10" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
