@@ -59,7 +59,7 @@ exports.addImage = (req, res) => {
                 newImage.markModified("contentUrl")
               }
               //TODO : Check if this is right
-              newImage.localCached = false;
+              newImage.localCached = true;
               newImage.markModified("localCached")
               // append added image
               user.image.push(newImage);
