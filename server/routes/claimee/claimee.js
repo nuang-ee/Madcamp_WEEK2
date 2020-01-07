@@ -7,6 +7,8 @@ exports.getClaimee = (req, res) => {
   const {
     uid
   } = req.body
+  console.log("getClaimee>>",
+    req.body)
   userModel.find({
     uid
   }, (err, [user]) => {
@@ -17,7 +19,17 @@ exports.getClaimee = (req, res) => {
       });
     } else {
       if (user) {
-        res.json(user.claimee) //.filter(e => e.received === false && e.sent === false))
+        const tmp = user.claimee.filter(e => e.received === false)
+        const done = tmp.map(e => ({
+          _id: e._id,
+          claimee: e.claimee,
+          amount: e.amount,
+          name: e.name,
+          date: e.date,
+          sent: e.sent,
+          received: e.received
+        }))
+        res.json(done)
       } else {
         res.json({
           message: "no user there"
@@ -30,7 +42,6 @@ exports.getClaimee = (req, res) => {
 exports.addClaimee = (req, res) => {
   const {
     uid,
-    claimee_uid,
     claimee,
     amount,
     name,
@@ -44,29 +55,52 @@ exports.addClaimee = (req, res) => {
       res.status(500).send({
         message: "Something wrong"
       });
+      return;
     } else {
-      // new Claimer list
       if (user) {
-        const newClaimee = new claimeeModel();
-        newClaimee.claimee_uid = claimee_uid;
-        newClaimee.claimee = claimee;
-        newClaimee.amount = amount;
-        newClaimee.name = name;
-        newClaimee.date = date;
-        user.claimee.push(newClaimee)
-        user.save(err => {
+        let claimee_uid;
+        userModel.find({
+          name: claimee
+        }, (err, [target]) => {
           if (err) {
             console.error(err);
-            res.json({
-              result: 0
+            res.status(500).send({
+              message: "Something wrong"
             });
+            return;
           } else {
-            res.json({
-              _id: newClaimee._id,
-              result: 1
-            });
+            // new Claimer list
+            if (target) {
+              claimee_uid = target.uid
+              const newClaimee = new claimeeModel();
+              newClaimee.claimee_uid = claimee_uid;
+              newClaimee.claimee = claimee;
+              newClaimee.amount = amount;
+              newClaimee.name = name;
+              newClaimee.date = date;
+              user.claimee.push(newClaimee)
+              user.save(err => {
+                if (err) {
+                  console.error(err);
+                  res.json({
+                    result: 0
+                  });
+                } else {
+                  res.json({
+                    _id: newClaimee._id,
+                    uid: claimee_uid,
+                    result: 1
+                  });
+                }
+              });
+            } else {
+              res.json({
+                message: "no target here"
+              })
+            }
+
           }
-        });
+        })
       } else {
         res.json({
           message: "no user here"
