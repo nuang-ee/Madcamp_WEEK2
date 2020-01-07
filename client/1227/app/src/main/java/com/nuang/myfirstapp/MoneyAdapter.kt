@@ -55,6 +55,11 @@ class MoneyAdapter(val context: Context, val itemList: ArrayList<ClaimItem>): Re
                             dialogInterface, i ->
 
                     }
+                    .setNegativeButton("정산") {
+                        dialogInterface, i ->
+                        // item.account가 빈 경우에는 ~~
+                        // api 요청하기
+                    }
                     .show()
             }
         }

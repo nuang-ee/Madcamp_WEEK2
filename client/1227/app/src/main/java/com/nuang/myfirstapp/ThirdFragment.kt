@@ -67,6 +67,7 @@ class ThirdFragment : Fragment() {
                         val date = sdf.format(Date()).toString()
                         val claimee = ClaimItem(_id="", claimId=claimeeId, name=transactionName, amount=cash, date=date, account="")
                         claimeeList.add(claimee)
+                        ClaimeeAdapter.notifyDataSetChanged()
                 }
                 .setNegativeButton("취소") {
                         dialogInterface, i ->
