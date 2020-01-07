@@ -57,7 +57,7 @@ class FirstFragment : Fragment() {
 
 
     fun initiateView() {
-        customAdapter = context?.let { CustomAdapter(it, contactModelArrayList!!) }
+        customAdapter = context?.let { CustomAdapter(it, contactModelArrayList) }
         customAdapter?.clickListener = object: CustomAdapter.ClickListener {
             override fun onLongClick(p0: View?): Boolean {
                 return true
@@ -93,7 +93,7 @@ class FirstFragment : Fragment() {
 
     private fun checkFirstRun() {
         val preferences: SharedPreferences = activity!!.getSharedPreferences("com.example.myfirstapp", MODE_PRIVATE)
-        val isFirstRun = preferences?.getBoolean("isFirstRun", true)
+        val isFirstRun = preferences.getBoolean("isFirstRun", true)
         if (isFirstRun) {
             initiateView()
             initializeContacts().execute()
@@ -262,7 +262,7 @@ class FirstFragment : Fragment() {
 
                 val url = URL("$serverUrl/contact/add")
                 val urlConnection = url.openConnection() as HttpURLConnection
-                urlConnection.requestMethod = "PUT"
+                urlConnection.requestMethod = "POST"
 
                 val wr = OutputStreamWriter(urlConnection.outputStream)
                 wr.write(queryparam)
@@ -585,13 +585,16 @@ class FirstFragment : Fragment() {
 
     fun undoDelete()
     {
+        /*
         recentlyDeletedItem?.let {
             contactModelArrayList.add(
                 recentlyDeletedItemPosition,
                 it
             )
         }
-        recyclerView?.adapter?.notifyItemInserted(recentlyDeletedItemPosition)
+        */
         recentlyDeletedItem?.let { addContact(it).execute() }
+        recyclerView?.adapter?.notifyItemInserted(recentlyDeletedItemPosition)
+
     }
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SecondFragment">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/SecondSwipeRefreshLayout"
@@ -20,4 +21,16 @@
             android:layout_marginBottom="60dp">
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimaryDark"
+        android:src="@drawable/ic_floating_action_button_plus" />
+
 </FrameLayout>

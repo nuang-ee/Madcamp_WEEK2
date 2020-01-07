@@ -17,4 +17,6 @@
     <string name="fb_login_protocol_scheme">fb2585656461680397</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
+    <string name="custom_tab_claimers">빚</string>
+    <string name="custom_tab_claimees">빚쟁이 목록</string>
 </resources>

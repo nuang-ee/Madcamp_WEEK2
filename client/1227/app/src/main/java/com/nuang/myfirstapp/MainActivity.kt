@@ -36,10 +36,13 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 
+private const val IMAGE_PICK_CODE = 1000
+val PERMISSIONS_REQUEST_CODE = 100
+val LOGIN_REQUEST_CODE = 300
+
 class MainActivity : AppCompatActivity() {
     val serverUrl = "http://34.84.158.57:4001"
-    val PERMISSIONS_REQUEST_CODE = 100
-    val LOGIN_REQUEST_CODE = 300
+
     private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET)
     var uid = ""
     lateinit var userInfo: JSONObject
@@ -156,8 +159,10 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == LOGIN_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
+        Log.d("asdasdkwod>>", "something's wrong")
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == LOGIN_REQUEST_CODE) {
                 val returnedResult = data?.getStringExtra("userdata")
                 if (returnedResult == null) {
                     Log.d("returnedResult>>", "is null")
@@ -168,6 +173,10 @@ class MainActivity : AppCompatActivity() {
                 Log.d("uid>>", uid)
                 Log.d("LoginData>>", returnedResult)
                 checkRunTimePermission()
+            }
+            else if (requestCode == IMAGE_PICK_CODE) {
+                Log.d("data>>", "dataOnMainActivity")
+                Log.d("data>>", data.toString())
             }
         }
     }

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="20sp"
+        android:paddingRight="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <!--        class ClaimItem (val _id: String,-->
+<!--        val claimId: String,-->
+<!--        val amount: Int,-->
+<!--        val account: String,-->
+<!--        val name: String,-->
+<!--        val date: String)-->
+
+
+        <TextView
+            android:id="@+id/claimer_dialog_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Name:"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/claimer_dialog_name_t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="coffee"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@+id/claimer_dialog_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/claimer_dialog_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="30sp"
+            android:text="Amount:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/claimer_dialog_name" />
+
+        <TextView
+            android:id="@+id/claimer_dialog_amount_t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="3000"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@+id/claimer_dialog_amount"
+            app:layout_constraintTop_toBottomOf="@+id/claimer_dialog_name_t" />
+
+        <TextView
+            android:id="@+id/claimer_dialog_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="30sp"
+            android:text="From:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/claimer_dialog_amount" />
+
+        <TextView
+            android:id="@+id/claimer_dialog_from_t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textSize="30sp"
+            android:text="claimee_id"
+            app:layout_constraintStart_toEndOf="@+id/claimer_dialog_from"
+            app:layout_constraintTop_toBottomOf="@+id/claimer_dialog_amount_t" />
+
+        <TextView
+            android:id="@+id/claimer_dialog_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Date:"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/claimer_dialog_from" />
+
+        <TextView
+            android:id="@+id/claimer_dialog_date_t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11/11/11"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/claimer_dialog_date" />
+
+        <TextView
+            android:id="@+id/claimer_dialog_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Account:"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/claimer_dialog_date_t" />
+
+        <TextView
+            android:id="@+id/claimer_dialog_account_t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="172255-51-155082"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/claimer_dialog_account"
+            app:layout_constraintTop_toBottomOf="@+id/claimer_dialog_account" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

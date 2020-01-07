@@ -22,7 +22,7 @@ class CustomAdapter(private val context: Context, private val contactModelArrayL
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
         super.onBindViewHolder(holder, position, payloads)
         if (clickListener != null) {
-            holder?.itemView?.setOnLongClickListener { v -> clickListener?.onLongClick(v, position)!! }
+            holder.itemView.setOnLongClickListener { v -> clickListener?.onLongClick(v, position)!! }
         }
     }
 
