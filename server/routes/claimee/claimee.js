@@ -17,7 +17,7 @@ exports.getClaimee = (req, res) => {
       });
     } else {
       if (user) {
-        res.json(user.claimee) //.filter(e => e.received === false && e.sent === false))
+        res.json(user.claimee.filter(e => e.received === false))
       } else {
         res.json({
           message: "no user there"

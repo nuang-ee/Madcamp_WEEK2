@@ -15,7 +15,7 @@ exports.getClaimer = (req, res) => {
       res.status(500).send(e);
     } else {
       if (user) {
-        res.json(user.claimer) //.filter(e => e.sent === false && e.received === false))
+        res.json(user.claimer.filter(e => e.received === false))
       } else {
         res.json({
           message: 'no user here'
