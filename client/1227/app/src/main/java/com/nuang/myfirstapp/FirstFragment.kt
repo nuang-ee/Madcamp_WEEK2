@@ -262,7 +262,7 @@ class FirstFragment : Fragment() {
 
                 val url = URL("$serverUrl/contact/add")
                 val urlConnection = url.openConnection() as HttpURLConnection
-                urlConnection.requestMethod = "PUT"
+                urlConnection.requestMethod = "POST"
 
                 val wr = OutputStreamWriter(urlConnection.outputStream)
                 wr.write(queryparam)
@@ -585,13 +585,16 @@ class FirstFragment : Fragment() {
 
     fun undoDelete()
     {
+        /*
         recentlyDeletedItem?.let {
             contactModelArrayList.add(
                 recentlyDeletedItemPosition,
                 it
             )
         }
-        recyclerView?.adapter?.notifyItemInserted(recentlyDeletedItemPosition)
+        */
         recentlyDeletedItem?.let { addContact(it).execute() }
+        recyclerView?.adapter?.notifyItemInserted(recentlyDeletedItemPosition)
+
     }
 }
