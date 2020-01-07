@@ -27,9 +27,6 @@ exports.getClaimee = (req, res) => {
   });
 }
 
-claimee 5e14 a65a9f1ba644fcd888f0
-claimer 5e14 a6799f1ba644fcd888f2
-
 exports.addClaimee = (req, res) => {
   const {
     uid,
