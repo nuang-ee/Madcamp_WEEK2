@@ -6,7 +6,8 @@ class ContactModel {
     var name: String? = null
     var number: String? = null
     var mail: String? = null
-    var photoUri: Uri? = null
+    var photoName: String? = null
+    var id: String? = null
 
     fun setNames(name: String) {
         this.name = name
@@ -14,6 +15,14 @@ class ContactModel {
 
     fun getNumbers(): String {
         return number.toString()
+    }
+
+    fun setid(name: String) {
+        this.id = name
+    }
+
+    fun getid(): String {
+        return id.toString()
     }
 
     fun setNumbers(number: String) {
@@ -31,11 +40,11 @@ class ContactModel {
     fun getMails(): String {
         return mail.toString()
     }
-    fun setPhoto(photo: Uri) {
-        this.photoUri = photo
+    fun setPhoto(photo: String) {
+        this.photoName = photo
     }
 
-    fun getPhoto(): Uri? {
-        return photoUri
+    fun getPhoto(): String? {
+        return photoName
     }
 }

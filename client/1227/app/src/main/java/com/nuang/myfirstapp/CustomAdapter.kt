@@ -1,6 +1,7 @@
 package com.nuang.myfirstapp
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,20 +12,35 @@ import com.nuang.myfirstapp.CustomAdapter.ViewHolder
 
 
 class CustomAdapter(private val context: Context, private val contactModelArrayList: ArrayList<ContactModel>): RecyclerView.Adapter<ViewHolder>() {
-    inner class ViewHolder(itemView: View?): RecyclerView.ViewHolder(itemView!!) {
+    val serverUrl = "http://34.84.158.57:4001"
 
+    interface ClickListener : View.OnLongClickListener {
+        fun onLongClick(view: View, position: Int): Boolean
+    }
+    var clickListener: ClickListener? = null
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
+        super.onBindViewHolder(holder, position, payloads)
+        if (clickListener != null) {
+            holder?.itemView?.setOnLongClickListener { v -> clickListener?.onLongClick(v, position)!! }
+        }
+    }
+
+    inner class ViewHolder(itemView: View?): RecyclerView.ViewHolder(itemView!!) {
         var tvname: TextView? = itemView?.findViewById(R.id.name)
         var tvnumber: TextView? = itemView?.findViewById(R.id.number)
         var tvmail: TextView? = itemView?.findViewById(R.id.mail)
-        var tvimage: ImageView? = itemView?.findViewById(R.id.profile_image)
+        //var tvimage: ImageView? = itemView?.findViewById(R.id.profile_image)
 
         fun bind (contactModel: ContactModel) {
             tvname?.text = contactModel.getNames()
             tvnumber?.text = contactModel.getNumbers()
             tvmail?.text = contactModel.getMails()
+            /*
             if(contactModel.getPhoto() != null){
-                tvimage?.setImageURI(contactModel.getPhoto())
+                tvimage?.setImageURI(Uri.parse(serverUrl + "/static/" + contactModel.getPhoto()))
             }
+             */
         }
     }
 

@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
@@ -37,31 +38,11 @@ class LoginActivity : AppCompatActivity() {
         loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
             override fun onSuccess(loginResult: LoginResult?) { // App code
                 Log.d("logged in>>", "asd")
-                val request = GraphRequest.newMeRequest(loginResult?.accessToken) {`object`, response ->
+                val request = GraphRequest.newMeRequest(loginResult?.accessToken) { `object`, _ ->
                     try {
                         Log.d("FBLOGIN>>", `object`.toString())
                         if (`object`.has("id")) {
                             data.putExtra("userdata", `object`.toString())
-                            if (`object`.has("picture")) {
-                                try {
-                                    Thread {
-                                        run {
-                                            val profilePicUrl = URL(
-                                                `object`.getJSONObject("picture")
-                                                    .getJSONObject("data").getString("url")
-                                            )
-                                            val profilePic =
-                                                BitmapFactory.decodeStream(profilePicUrl.openConnection().getInputStream())
-                                            val userImage =
-                                                findViewById<ImageView>(R.id.fb_profile_image)
-                                            userImage.setImageBitmap(profilePic)
-                                        }
-                                    }.start()
-                                }
-                                catch (e: Exception) {
-                                    Log.d("Exception>>", e.toString())
-                                }
-                            }
                             setResult(Activity.RESULT_OK, data)
                             finish()
                         }

@@ -27,6 +27,7 @@ import java.util.*
 
 
 class ThirdFragment : Fragment() {
+    /*
     val weatherAPI: String = "e2054e5fd85d82fb049fe2c791bfe058"
     val fineDustAPI: String = "uo81tqCqaqN2cI45bKhC8%2BFOaEg6hvoiCxLRIDx1Ks4vPqUmHUHovDuiJJanHpbYEUvnCt2U4BdcoKgsUswjkQ%3D%3D"
     var latitude: Double = 0.0
@@ -331,5 +332,7 @@ class ThirdFragment : Fragment() {
         fun onFragmentSelected()
     }
     */
+
+     */
 }
 
