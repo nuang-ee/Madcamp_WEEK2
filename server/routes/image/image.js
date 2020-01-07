@@ -72,7 +72,7 @@ exports.addImage = (req, res) => {
                 } else {
                   res.json({
                     _id: newImage._id,
-                    contentUrl: "/static" + newImage.contentUrl,
+                    contentUrl: "/static/" + newImage.contentUrl,
                     result: 1
                   });
                 }
