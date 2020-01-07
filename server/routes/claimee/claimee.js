@@ -21,28 +21,26 @@ exports.getClaimee = (req, res) => {
 
 exports.addClaim = (req, res) => {
   const {
-    uid
+    uid,
+    claimee,
+    amount,
+    name,
+    date
   } = req.body;
   userModel.find({
     uid
   }, (err, [user]) => {
     if (err) {
       console.error(err);
-      res.status(500).send(e);
+      res.status(500).send(err);
     } else {
       // new Claimer list
-      const rawClaimeeList = req.body.claimeeList
-      const claimeeList = rawClaimeeList.map(e => {
-        const claimee = new claimeeModel();
-        claimee.claimee = e.claimee;
-        claimee.amount = e.amount;
-        claimee.name = e.name;
-        claimee.date = e.date;
-        // sent/received는 default 값이 false
-        return claimee
-      })
-      const claimeeIdList = claimeeList.map(e => e._id)
-      user.claimee.push(claimee)
+      const newClaimee = new claimeeModel();
+      newClaimee.claimee = claimee;
+      newClaimee.amount = amount;
+      newClaimee.name = name;
+      newClaimee.date = date;
+      user.claimee.push(newClaimee)
       user.save(err => {
         if (err) {
           console.error(err);
@@ -51,7 +49,7 @@ exports.addClaim = (req, res) => {
           });
         } else {
           res.json({
-            _id: claimeeIdList,
+            _id: newClaimee._id,
             result: 1
           });
         }
@@ -65,7 +63,7 @@ exports.sendAmount = (req, res) => {
     uid,
     _id
   } = req.body;
-  let receiver, date;
+  let receiver;
   userModel.find({
     uid
   }, (err, [user]) => {
@@ -75,13 +73,22 @@ exports.sendAmount = (req, res) => {
     } else {
       user.claimer.map(
         e => {
+          console.log(e)
           if (JSON.stringify(e._id) === JSON.stringify(ObjectId(_id))) {
             e.sent = true
             receiver = e.claimer
-            date = e.date
           }
         }
       )
+      user.save(err => {
+        if (err) {
+          console.error(err);
+          res.json({
+            result: 0
+          });
+          return;
+        }
+      })
     }
   })
   userModel.find({
@@ -92,12 +99,10 @@ exports.sendAmount = (req, res) => {
       res.status(500).send(err);
     } else {
       user.claimee.map(e => {
-        if (e.date === date) {
+        console.log(e.claimee, uid)
+        console.log(typeof e.claimee, typeof uid)
+        if (JSON.stringify(ObjectId(e.claimee)) === JSON.stringify(uid)) {
           e.sent = true
-        } else {
-          res.json({
-            result: 0
-          })
         }
       })
       user.save(err => {
