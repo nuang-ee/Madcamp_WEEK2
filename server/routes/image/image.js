@@ -15,7 +15,9 @@ exports.getImage = (req, res) => {
   }, (err, [user]) => {
     if (err) {
       console.error(err);
-      res.status(500).send(err);
+      res.status(500).send({
+        message: "Something wrong"
+      });
     } else {
       if (user) {
         const imgList = user.image.filter(e => e.localCached)
@@ -38,6 +40,9 @@ exports.addImage = (req, res) => {
   upload(req, res, (err) => {
     if (err) {
       console.log(err);
+      res.status(500).send({
+        message: "Something wrong"
+      });
     } else {
       if (req.file == undefined) {
         res.send('Error: No File Selected!');
@@ -48,16 +53,16 @@ exports.addImage = (req, res) => {
         userModel.find({
           uid
         }, (err, [user]) => {
-          if (user) {
-            if (err) {
-              console.error(err);
-              res.status(500).send(e)
-            } else {
+          if (err) {
+            console.error(err);
+            res.status(500).send({
+              message: "Something wrong"
+            });
+          } else {
+            if (user) {
               const newImage = new imageModel()
-              if (req.file) {
-                newImage.contentUrl = req.file.filename;
-                newImage.markModified("contentUrl")
-              }
+              newImage.contentUrl = req.file.filename;
+              newImage.markModified("contentUrl")
               //TODO : Check if this is right
               newImage.localCached = true;
               newImage.markModified("localCached")
@@ -77,11 +82,11 @@ exports.addImage = (req, res) => {
                   });
                 }
               });
+            } else {
+              res.json({
+                message: "user not found"
+              })
             }
-          } else {
-            res.json({
-              message: "user not found"
-            })
           }
         })
       }
@@ -100,22 +105,30 @@ exports.deleteImage = (req, res) => {
   }, (err, [user]) => {
     if (err) {
       console.error(err);
-      res.status(500).send(e);
+      res.status(500).send({
+        message: "Something wrong"
+      });
     } else {
-      const image = user.image.find(e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id)))
-      user.image = user.image.filter(e => e !== image)
-      user.save((err) => {
-        if (err) {
-          console.error(err)
-          res.json({
-            result: 0
-          })
-        } else {
-          res.json({
-            result: 1
-          })
-        }
-      })
+      if (user) {
+        const image = user.image.find(e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id)))
+        user.image = user.image.filter(e => e !== image)
+        user.save((err) => {
+          if (err) {
+            console.error(err)
+            res.json({
+              result: 0
+            })
+          } else {
+            res.json({
+              result: 1
+            })
+          }
+        })
+      } else {
+        res.json({
+          message: "no user here"
+        })
+      }
     }
   })
 }

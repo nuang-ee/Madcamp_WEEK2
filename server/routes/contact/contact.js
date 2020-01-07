@@ -15,14 +15,17 @@ exports.getContact = (req, res) => {
     (err, [user]) => {
       // [user], since find() returns list
       if (err) {
-        console.error(err);
-        res.status(500).send(err);
+        console.log(err)
+        res.status(500).send({
+          message: "Something wrong"
+        });
       } else {
         if (user) {
           res.json(user.contact.filter(e => e.localCached === true).sort((a, b) => (a.name < b.name) ? 1 : ((b.name < a.name) ? -1 : 0))); // return uid's contact ('localCached === true' only)
         } else {
-          console.error(err);
-          res.status(500).send(err);
+          res.status(500).send({
+            message: "no user here"
+          });
         }
       }
     }
@@ -48,8 +51,10 @@ exports.addContact = (req, res) => {
         (err, [user]) => {
           // [user], since find() returns list
           if (err) {
-            console.error(err);
-            res.status(500).send(err);
+            console.log(err)
+            res.status(500).send({
+              message: "Something wrong"
+            });
           } else {
             if (user) {
               // new contact
@@ -77,13 +82,15 @@ exports.addContact = (req, res) => {
                 } else {
                   res.json({
                     _id: contact._id,
+                    thumbnail: "/static/" + contact.thumbnail,
                     result: 1
                   });
                 }
               });
             } else {
-              console.error(err);
-              res.status(500).send(err);
+              res.status(500).send({
+                message: "no user here"
+              });
             }
           }
         }
@@ -96,6 +103,9 @@ exports.updateContact = (req, res) => {
   upload(req, res, err => {
     if (err) {
       console.log(err);
+      res.status(500).send({
+        message: "Something wrong"
+      });
     } else {
       // uid is user id, _id is id of contact to be updated
       const {
@@ -114,7 +124,9 @@ exports.updateContact = (req, res) => {
           // [user], since find() returns list
           if (err) {
             console.error(err);
-            res.status(500).send(err);
+            res.status(500).send({
+              message: "some errors here"
+            });
           } else {
             let contact = user.contact.find(
               e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id))
@@ -165,24 +177,32 @@ exports.deleteContact = (req, res) => {
       // [user], since find() returns list
       if (err) {
         console.error(err);
-        res.status(500).send(err);
-      } else {
-        const contact = user.contact.find(
-          e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id))
-        );
-        user.contact = user.contact.filter(e => e !== contact);
-        user.save(err => {
-          if (err) {
-            console.error(err);
-            res.json({
-              result: 0
-            });
-          } else {
-            res.json({
-              result: 1
-            });
-          }
+        res.status(500).send({
+          message: "Something wrong"
         });
+      } else {
+        if (user) {
+          const contact = user.contact.find(
+            e => JSON.stringify(e._id) === JSON.stringify(ObjectId(_id))
+          );
+          user.contact = user.contact.filter(e => e !== contact);
+          user.save(err => {
+            if (err) {
+              console.error(err);
+              res.json({
+                result: 0
+              });
+            } else {
+              res.json({
+                result: 1
+              });
+            }
+          });
+        } else {
+          res.json({
+            message: "no user here"
+          })
+        }
       }
     }
   );

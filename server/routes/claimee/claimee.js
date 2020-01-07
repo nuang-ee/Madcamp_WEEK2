@@ -12,16 +12,28 @@ exports.getClaimee = (req, res) => {
   }, (err, [user]) => {
     if (err) {
       console.error(err);
-      res.status(500).send(e);
+      res.status(500).send({
+        message: "Something wrong"
+      });
     } else {
-      res.json(user.claimee.filter(e => e.received === false && e.sent === false))
+      if (user) {
+        res.json(user.claimee) //.filter(e => e.received === false && e.sent === false))
+      } else {
+        res.json({
+          message: "no user there"
+        })
+      }
     }
   });
 }
 
-exports.addClaim = (req, res) => {
+claimee 5e14 a65a9f1ba644fcd888f0
+claimer 5e14 a6799f1ba644fcd888f2
+
+exports.addClaimee = (req, res) => {
   const {
     uid,
+    claimee_uid,
     claimee,
     amount,
     name,
@@ -32,91 +44,121 @@ exports.addClaim = (req, res) => {
   }, (err, [user]) => {
     if (err) {
       console.error(err);
-      res.status(500).send(err);
+      res.status(500).send({
+        message: "Something wrong"
+      });
     } else {
       // new Claimer list
-      const newClaimee = new claimeeModel();
-      newClaimee.claimee = claimee;
-      newClaimee.amount = amount;
-      newClaimee.name = name;
-      newClaimee.date = date;
-      user.claimee.push(newClaimee)
-      user.save(err => {
-        if (err) {
-          console.error(err);
-          res.json({
-            result: 0
-          });
-        } else {
-          res.json({
-            _id: newClaimee._id,
-            result: 1
-          });
-        }
-      });
+      if (user) {
+        const newClaimee = new claimeeModel();
+        newClaimee.claimee_uid = claimee_uid;
+        newClaimee.claimee = claimee;
+        newClaimee.amount = amount;
+        newClaimee.name = name;
+        newClaimee.date = date;
+        user.claimee.push(newClaimee)
+        user.save(err => {
+          if (err) {
+            console.error(err);
+            res.json({
+              result: 0
+            });
+          } else {
+            res.json({
+              _id: newClaimee._id,
+              result: 1
+            });
+          }
+        });
+      } else {
+        res.json({
+          message: "no user here"
+        })
+      }
     }
   })
 }
 
-exports.sendAmount = (req, res) => {
+exports.receivedAmount = (req, res) => {
   const {
     uid,
     _id
-  } = req.body;
-  let receiver;
+  } = req.body
+  let sender, date;
   userModel.find({
     uid
   }, (err, [user]) => {
     if (err) {
       console.error(err);
-      res.status(500).send(err);
+      res.status(500).send({
+        message: "Something wrong"
+      });
     } else {
-      user.claimer.map(
-        e => {
-          console.log(e)
-          if (JSON.stringify(e._id) === JSON.stringify(ObjectId(_id))) {
-            e.sent = true
-            receiver = e.claimer
+      if (user) {
+        user.claimee.map(
+          e => {
+            if (JSON.stringify(e._id) === JSON.stringify(ObjectId(_id))) {
+              if (e.sent) {
+                e.received = true;
+                sender = e.claimee_uid;
+                date = e.date;
+              } else {
+                res.json({
+                  result: 0
+                })
+                return;
+              }
+            }
           }
-        }
-      )
-      user.save(err => {
-        if (err) {
-          console.error(err);
-          res.json({
-            result: 0
-          });
-          return;
-        }
-      })
+        )
+        user.save(err => {
+          if (err) {
+            console.error(err);
+            res.json({
+              result: 0
+            });
+            return;
+          }
+        })
+      } else {
+        res.json({
+          message: "no user here"
+        })
+      }
     }
-  })
+  });
   userModel.find({
-    receiver,
+    sender
   }, (err, [user]) => {
     if (err) {
       console.error(err);
-      res.status(500).send(err);
+      res.status(500).send({
+        message: "Something wrong"
+      });
     } else {
-      user.claimee.map(e => {
-        console.log(e.claimee, uid)
-        console.log(typeof e.claimee, typeof uid)
-        if (JSON.stringify(ObjectId(e.claimee)) === JSON.stringify(uid)) {
-          e.sent = true
-        }
-      })
-      user.save(err => {
-        if (err) {
-          console.error(err);
-          res.json({
-            result: 0
-          });
-        } else {
-          res.json({
-            result: 1
-          });
-        }
-      })
+      if (user) {
+        user.claimer.map(e => {
+          if (e.date === date && e.sent) {
+            e.received = true
+          }
+        })
+        user.save(err => {
+          if (err) {
+            console.error(err);
+            res.json({
+              result: 0
+            });
+          } else {
+            res.json({
+              result: 1
+            });
+          }
+        })
+      } else {
+        res.json({
+          message: "no user here"
+        })
+      }
     }
   })
 }

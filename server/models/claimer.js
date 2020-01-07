@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const claimerSchema = new mongoose.Schema({
-	claimer: mongoose.Schema.ObjectId, // 보낼 상대 이름
+	claimer_uid: String, // 청구인 uid
+	claimer: String, // 청구인 이름
 	amount: Number, // 보낼 금액
 	account: String, // 계좌 정보
 	name: String, // 거래 이름
