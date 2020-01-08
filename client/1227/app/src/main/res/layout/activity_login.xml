@@ -14,11 +14,13 @@
         <FrameLayout
             android:layout_width="270dp"
             android:layout_height="270dp"
-            android:background="@drawable/item_border"
+            android:background="@drawable/facebookborder"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.498">
 
         </FrameLayout>
 
@@ -28,12 +30,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:background="@drawable/item_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="@drawable/item_border" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView"
