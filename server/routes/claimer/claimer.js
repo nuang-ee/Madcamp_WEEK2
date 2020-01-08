@@ -7,8 +7,6 @@ exports.getClaimer = (req, res) => {
   const {
     uid
   } = req.body
-  console.log("getClaimer>>",
-    req.body)
   userModel.find({
     uid
   }, (err, [user]) => {
@@ -49,7 +47,6 @@ exports.addClaimer = (req, res) => {
     name,
     date
   } = req.body;
-  console.log(req.body);
   userModel.find({
     uid
   }, (err, [user]) => {
@@ -64,7 +61,6 @@ exports.addClaimer = (req, res) => {
         userModel.find({
           name: claimer
         }, (err, [target]) => {
-          console.log(target)
           if (err) {
             console.error(err);
             res.status(500).send({

@@ -7,8 +7,6 @@ exports.getClaimee = (req, res) => {
   const {
     uid
   } = req.body
-  console.log("getClaimee>>",
-    req.body)
   userModel.find({
     uid
   }, (err, [user]) => {

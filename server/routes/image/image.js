@@ -39,7 +39,7 @@ exports.getImage = (req, res) => {
 exports.addImage = (req, res) => {
   upload(req, res, (err) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send({
         message: "Something wrong"
       });
@@ -70,7 +70,7 @@ exports.addImage = (req, res) => {
               user.image.push(newImage);
               user.save((err) => {
                 if (err) {
-                  console.log(err)
+                  console.error(err)
                   res.json({
                     result: 0
                   })

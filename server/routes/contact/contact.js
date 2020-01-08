@@ -15,7 +15,7 @@ exports.getContact = (req, res) => {
     (err, [user]) => {
       // [user], since find() returns list
       if (err) {
-        console.log(err)
+        console.error(err)
         res.status(500).send({
           message: "Something wrong"
         });
@@ -35,7 +35,7 @@ exports.getContact = (req, res) => {
 exports.addContact = (req, res) => {
   upload(req, res, err => {
     if (err) {
-      console.log(err);
+      console.error(err);
     } else {
       const {
         uid,
@@ -51,7 +51,7 @@ exports.addContact = (req, res) => {
         (err, [user]) => {
           // [user], since find() returns list
           if (err) {
-            console.log(err)
+            console.error(err)
             res.status(500).send({
               message: "Something wrong"
             });
@@ -102,7 +102,7 @@ exports.addContact = (req, res) => {
 exports.updateContact = (req, res) => {
   upload(req, res, err => {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send({
         message: "Something wrong"
       });
