@@ -19,7 +19,7 @@
              "_id": "5e11c6aaf1e4da55aa0807a0",
              "name": "Minu",
              "phoneNumber": "1",
-             "email": "kim-mins@naver.com",
+             "email": "email@naver.com",
              "thumbnail": "myImage-1578223274414.jpg"
          },
          {
@@ -27,7 +27,7 @@
              "_id": "5e11c6aaf1e4da55aa0807a0",
              "name": "Minu",
              "phoneNumber": "1",
-             "email": "kim-mins@naver.com",
+             "email": "email@naver.com",
              "thumbnail": "myImage-1578223274414.jpg"
          }
      ]
@@ -56,15 +56,7 @@
 
 3. <b>put</b> /contact/update <b>기존에 있던 연락처 수정</b>
 
-   - input: uid, \_id, (name || phoneNumber || email || localCached || thumbnail) => 얘네는 필요하면 보내기. 서버 내에는 아래처럼 짜여있음(값이 있는 경우에만 처리하게끔)
-
-     ```
-     if (name) contact.name = name;
-     if (phoneNumber) contact.phoneNumber = phoneNumber;
-     if (email) contact.email = email;
-     if (req.file.filename) contact.thumbnail = req.file.filename;
-     if (localCached) contact.localCached = localCached;
-     ```
+   - input: uid, \_id, (name || phoneNumber || email || localCached || thumbnail) => 얘네는 필요하면 보내기.
 
    - output: result (아래는 예시)
 
