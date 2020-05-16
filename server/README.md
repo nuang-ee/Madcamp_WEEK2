@@ -1,6 +1,6 @@
 ## Endpoint 정리
 
-##### client base url: http://34.84.158.57:4001/
+##### client base url: http://<server_url>:4001/
 
 ### 1) Contact
 
@@ -102,7 +102,7 @@
 
    - input: uid
 
-   - output: image list (아래는 예시) // <b>"http://34.84.158.57:4001" + contentUrl로 접근</b>
+   - output: image list (아래는 예시) // <b>"http://<server_url>:4001" + contentUrl로 접근</b>
 
      ```
      [
