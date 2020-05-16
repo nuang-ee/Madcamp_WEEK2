@@ -1,9 +1,10 @@
 # Madcamp_WEEK2
 
-<span style="color:red">some **This is Red Bold.** text</span>
+**This Project is deprecated. Should be updated properly to be used.**
 
+##### For developing : 
 After cloning, run the code below:
 ```
-cd Madcamp_WEEK2
+cd server
 npm install
 ```
